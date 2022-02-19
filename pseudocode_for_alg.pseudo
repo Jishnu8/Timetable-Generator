@@ -1,0 +1,135 @@
+Teacher (input):
+Name (string)
+Array of ‘Course’ objects
+Restrictions 
+
+Course:
+Students (string array)
+Subject Name
+Number of periods (int)
+Location (generating with alg)
+Periods Assigned (generated with alg)
+
+Location:
+    Building Name
+    Room No
+    Capacity 
+
+Clas:
+    Teacher
+    Int courseIndex
+    Int periodindex (default to -1)
+    Int classSpacing
+    Students (string array)
+    backtrackRestrictions[]
+
+Period:
+    Clas periodsubjectlist[n]
+    Int periodsubjectindex to know how many classes this period has, defaulted to -1
+    Int PreferabilityScore
+
+Metrics to take into account:
+    Congestion (period/day) (3)
+    Class Spacing (1)  floor(n/p)
+    Preferability (2)
+
+Conditions for placement: 
+    No overlapping teachers/students
+    Within teacher restrictions
+    Classroom available
+
+
+Backtracking algorithm:
+
+Period timetable[42]
+Clas classarray[] 
+Int classIndex = 0
+bool periodchosen = false
+Int capacity
+
+
+While 1:
+	previousIndex = index of previous class of same subject and teacher
+	n = number of days in the week
+	p = number of periods of the subject
+	classSpacing = ceil(n/p)
+    indexSkipped = (classSpacing) * 7 - previousIndex % 7
+    Possibilities[7]
+    possibilitiesIndex = -1 
+
+	for i,  previousIndex + indexSkipped -> previousIndex + indexSkipped + 6:
+		If (conditions for placement are met):
+			possibilitiesIndex += 1
+			possibilities[possibilitiesIndex] = i
+
+	if (possibilitiesIndex == -1){
+		classSpacing -= 1
+		if (classSpacing == 0){
+			If classIndex = 0:
+				Return
+			
+			
+		classarray[classIndex].backtrackRestrcition.empty()
+        classIndex -= 1
+		classarray[classIndex].backtrackRestriction.append(classarray[classIndex].periodIndex)
+		classarray[classIndex].periodIndex = -1
+        timetable[classarray[classIndex].periodindex].subjectlistindex -= 1
+
+		}
+		continue
+    }
+
+    sort(possiblities, 0, possibilitiesIndex) according to preferability
+    int finalPeriods[possibilitiesIndex+1];
+    finalPeriods[0] = possiblities[possiblitiesIndex]
+    For i, possiblitiesIndex - 1->0:
+        If timetable[possibilties[i].preferabilityScore <
+    finalPeriods[0].preferabilityScore:
+            Break
+        finalPeriods.append(i)
+
+    sort(finalPeriods, 0, finalPeriodIndex) according to congestion
+    Int bestIndex = finalPeriods[0]
+
+    put classarray[classIndex] in timetable[i]
+    classarray[classIndex].periodindex = i
+    timetable[bestIndex].subjectlistindex += 1
+
+	Else:
+		Periodchosen = false
+		classIndex += 1
+			If classIndex = sizeofclassarray - 1:
+			Output the solution
+
+
+            
+bool isRestricted(int periodIndex, int classIndex):
+	Int restrictionArray[] = classArray[classIndex].teacher.restrictions
+For i, 0 -> restrictionArray.length - 1:
+If periodIndex == restrictionArray[i]:
+return true	
+	
+	return false
+
+Bool isFull(int periodIndex):
+	If timetable[periodIndex].periodsubjectindex == capacity - 1:
+		return true
+	return false
+
+
+
+
+
+bool isOverlapping(int periodIndex, int classIndex):
+	Periodsubjectlist = periodArray[periodIndex].periodsubjectlist
+	for i, 0 -> timetable[periodIndex].periodsubjectindex:
+		if periodsubjectlist[i].teacher.name = classarray[classIndex].teacher.name:
+			return true
+	
+	For i, 0 ->  timetable[periodIndex].periodsubjectindex:
+		For j, 0 -> timetable[periodIndex].periodsubjectlist[i].studentList.length:
+			For k, 0 -> classArray[classIndex].studentList.length:
+				if(timetable[periodIndex].periodsubjectlist[i].studentList[j]==
+classArray[classIndex].studentList[k]:
+	Return true
+	Return false

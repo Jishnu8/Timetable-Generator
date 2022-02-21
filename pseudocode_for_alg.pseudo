@@ -1,14 +1,19 @@
+/*naming convention: eg. subject_name
+				         period_index
+                         no capital letters */
+
 Teacher (input):
-Name (string)
-Array of ‘Course’ objects
-Restrictions 
+	Name (string)
+	Array of ‘Course’ objects
+	Restrictions 
 
 Course:
-Students (string array)
-Subject Name
-Number of periods (int)
-Location (generating with alg)
-Periods Assigned (generated with alg)
+	Students (string array)
+	Subject Name
+	Number of periods (int)
+	Location (generating with alg)
+	Periods Assigned (generated with alg)
+	int noOfPeriodsAssigned (default = 0)
 
 Location:
     Building Name
@@ -17,10 +22,10 @@ Location:
 
 Clas:
     Teacher
-    Int courseIndex
+    Int courseIndex	(will be changed to pointer and make changes in all places accordingly)
     Int periodindex (default to -1)
-    Int classSpacing
-    Students (string array)
+    Int classSpacing (default ceil(n/p)) n - no of days in the week p - no of peridos for that subject
+    Students (string array) (will be accessed using course pointer)
     backtrackRestrictions[]
 
 Period:
@@ -44,16 +49,13 @@ Backtracking algorithm:
 Period timetable[42]
 Clas classarray[] 
 Int classIndex = 0
-bool periodchosen = false
 Int capacity
 
 
 While 1:
-	previousIndex = index of previous class of same subject and teacher
-	n = number of days in the week
-	p = number of periods of the subject
-	classSpacing = ceil(n/p)
-    indexSkipped = (classSpacing) * 7 - previousIndex % 7
+	previousIndex = course_array[classarray[classIndex].courseIndex].periodAssigned[noOfPeriodsAssigned]
+    //classSpacing is atrribute of classarray[classIndex]
+	indexSkipped = (classSpacing) * 7 - previousIndex % 7
     Possibilities[7]
     possibilitiesIndex = -1 
 
@@ -74,6 +76,7 @@ While 1:
 		classarray[classIndex].backtrackRestriction.append(classarray[classIndex].periodIndex)
 		classarray[classIndex].periodIndex = -1
         timetable[classarray[classIndex].periodindex].subjectlistindex -= 1
+		course_array[classarray[classIndex].courseIndex].noOfPeriodsAssigned -= 1
 
 		}
 		continue
@@ -83,31 +86,36 @@ While 1:
     int finalPeriods[possibilitiesIndex+1];
     finalPeriods[0] = possiblities[possiblitiesIndex]
     For i, possiblitiesIndex - 1->0:
-        If timetable[possibilties[i].preferabilityScore <
-    finalPeriods[0].preferabilityScore:
+        If timetable[possibilties[i].preferabilityScore < finalPeriods[0].preferabilityScore:
             Break
         finalPeriods.append(i)
 
     sort(finalPeriods, 0, finalPeriodIndex) according to congestion
     Int bestIndex = finalPeriods[0]
 
-    put classarray[classIndex] in timetable[i]
-    classarray[classIndex].periodindex = i
+    put classarray[classIndex] in timetable[bestIndex]
+    classarray[classIndex].periodindex = bestIndex
     timetable[bestIndex].subjectlistindex += 1
+	course_array[classarray[classIndex].courseIndex].periodAssigned[noOfPeriodsAssigned++] = bestIndex
+	classIndex += 1
 
-	Else:
-		Periodchosen = false
-		classIndex += 1
-			If classIndex = sizeofclassarray - 1:
-			Output the solution
+	if (classIndex == classArray.length){
+		output solution
+		classIndex -= 1
+		remove classarray[classIndex] in timetable[bestIndex]
+		classArray[classIndex].backtrackRestrcition.append(bestIndex)
+		classArray[classIndex].periodIndex = -1
+		timetable[bestIndex].subjectlistindex -= 1
+		course_array[classarray[classIndex].courseIndex].noOfPeriodsAssigned -= 1
+	}
 
 
             
-bool isRestricted(int periodIndex, int classIndex):
-	Int restrictionArray[] = classArray[classIndex].teacher.restrictions
-For i, 0 -> restrictionArray.length - 1:
-If periodIndex == restrictionArray[i]:
-return true	
+bool isRestricted(int periodIndex, int classIndex, int *arrayPointer):
+	//arrayPointer can be teacherRestrictions[] and backtrackRestriciont[]
+	For i, 0 -> arrayPointer.length - 1:
+		If periodIndex == arrayPointer[i]:
+			return true	
 	
 	return false
 
@@ -115,10 +123,6 @@ Bool isFull(int periodIndex):
 	If timetable[periodIndex].periodsubjectindex == capacity - 1:
 		return true
 	return false
-
-
-
-
 
 bool isOverlapping(int periodIndex, int classIndex):
 	Periodsubjectlist = periodArray[periodIndex].periodsubjectlist
@@ -130,6 +134,8 @@ bool isOverlapping(int periodIndex, int classIndex):
 		For j, 0 -> timetable[periodIndex].periodsubjectlist[i].studentList.length:
 			For k, 0 -> classArray[classIndex].studentList.length:
 				if(timetable[periodIndex].periodsubjectlist[i].studentList[j]==
-classArray[classIndex].studentList[k]:
-	Return true
+					classArray[classIndex].studentList[k]:
+					Return true
+
 	Return false
+ 

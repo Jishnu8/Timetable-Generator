@@ -10,6 +10,5 @@
 using namespace std;
 
 int main(){
-    cout << "Buffalo";
     return 0;
 }

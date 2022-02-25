@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 #include <string>
 #include "course.h"
 
@@ -15,6 +14,10 @@ class teacher{
     public:
     teacher(string, course*, int*);
     ~teacher();
+    
+    string get_teacher_name() const;
+    course* get_course_array() const;
+    int* get_teacher_restrictions() const;
 };
 
 

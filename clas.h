@@ -13,7 +13,10 @@ class clas{
     int class_spacing;
     int* backtrackRestrictions;
     clas(teacher, course*);
-    ~clas();   
+    ~clas(); 
+
+    teacher get_teacher_obj() const;
+    course* get_course_obj() const;  
 };
 
 #endif //CLAS_H

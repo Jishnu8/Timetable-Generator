@@ -1,6 +1,5 @@
 #include "teacher.h"
 #include "course.h"
-#include "course.cpp"
 
 using namespace std;
 
@@ -16,6 +15,19 @@ teacher::teacher(string nm, course* ca, int* tr)
     for (int i = 0; i < sizeof(tr)/sizeof(tr[0]); i++){
         teacher_restrictions[i] = tr[i];
     }
+}
 
+string teacher::get_teacher_name() const
+{
+    return teacher_name;
+}
 
+course* teacher::get_course_array() const
+{
+    return course_array;
+}
+
+int* teacher::get_teacher_restrictions() const
+{
+    return teacher_restrictions;
 }

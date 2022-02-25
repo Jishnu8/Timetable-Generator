@@ -51,20 +51,17 @@ Period timetable[42]
 Clas classarray[] 
 Int classIndex = 0
 Int capacity
-int Possibilities[7]
-int possibilitiesIndex;
 
 
 While 1:
 	previousIndex = course_array[classarray[classIndex].courseIndex].periodAssigned[noOfPeriodsAssigned]
     //classSpacing is atrribute of classarray[classIndex]
 	indexSkipped = (classSpacing) * 7 - previousIndex % 7
+    Possibilities[7]
     possibilitiesIndex = -1 
 
 	for i,  previousIndex + indexSkipped -> previousIndex + indexSkipped + 6:
 		//function 1 start
-		// input : start_index, end_index
-		// task: calculate possibilities_index and fill possibilities array
 		If (conditions for placement are met):
 			possibilitiesIndex += 1
 			possibilities[possibilitiesIndex] = i

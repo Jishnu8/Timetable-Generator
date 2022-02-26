@@ -12,11 +12,12 @@ class clas{
     int period_index;
     int class_spacing;
     int* backtrackRestrictions;
+    int backtrack_restrictions_size;
     clas(teacher, course*);
-    ~clas(); 
+    ~clas();
 
     teacher get_teacher_obj() const;
-    course* get_course_obj() const;  
+    course* get_course_obj() const;
 };
 
 #endif //CLAS_H

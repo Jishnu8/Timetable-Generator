@@ -17,6 +17,7 @@ using namespace std;
 //global variables
 period* timetable = new period[42];
 clas* class_array = nullptr;
+clas* class_ = nullptr;
 int class_index = 0;
 int capacity;
 int previous_index;
@@ -33,22 +34,40 @@ void construct_class_array() {
 }
 
 void find_possibilities_in_range(int a, int b, int index) {
-    bool is_full, is_overlapping, is_restricted;
+    bool full, overlapping, t_restricted, b_restricted;
     for(int i = a; i < b; i++) {
         // check conditions for i
+        full = is_full(i);
+        overlapping = is_overlapping(i, index);
+        t_restricted = is_restricted(i, index, class_array[index].backtrackRestrictions);
+        b_restricted = is_restricted(i, index, class_array[index].get_teacher_obj().get_teacher_restrictions());
+        if(!full && !overlapping && !t_restricted && !b_restricted) {
+            possibilities_index++;
+            possibilities[possibilities_index] = i;
+        }
     }
+}
+
+void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
+
+    curr_class->backtrack_restrictions_size = 0;
+    prev_class->backtrackRestrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
+    timetable[prev_class->period_index].period_subject_index--;
+    prev_class->period_index = -1;
+    // #periods assigned
+
 }
 
 void init() {
 
     while(1) {
-
-        course_ref = class_array[class_index].get_course_obj(); // a course pointer
+        class_ = &class_array[class_index];
+        course_ref = class_->get_course_obj(); // a course pointer
         periods_qty = course_ref->get_no_of_periods();
 
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
-            indices_skipped = class_array[class_index].class_spacing*7 - previous_index%7;
+            indices_skipped = class_->class_spacing*7 - previous_index%7;
         } else {
             previous_index = 0;
             indices_skipped = 0;
@@ -56,23 +75,24 @@ void init() {
 
         possibilities_index = -1;
         start_pos = previous_index + indices_skipped;
-        find_possibilities_in_range(start_pos, start_pos + 7, class_index);
+        find_possibilities_in_range(start_pos, start_pos + 7, class_index); // function 1
+
+        if(possibilities_index == -1) {
+            if(--(class_->class_spacing) == 0) {
+                if(class_index == 0) { // all possibilities exhausted
+                    return;
+                }
+                backtrack_to_prev_class(class_, class_array[class_index-1]); // function 2
+
+
+            }
+            continue;
+        }
 
     }
 
 }
-//	previousIndex = course_array[classarray[classIndex].courseIndex].periodAssigned[noOfPeriodsAssigned]
-//    //classSpacing is atrribute of classarray[classIndex]
-//	indexSkipped = (classSpacing) * 7 - previousIndex % 7
-//    Possibilities[7]
-//    possibilitiesIndex = -1
-//
-//	for i,  previousIndex + indexSkipped -> previousIndex + indexSkipped + 6:
-//		//function 1 start
-//		If (conditions for placement are met):
-//			possibilitiesIndex += 1
-//			possibilities[possibilitiesIndex] = i
-//		//function 1 end
+
 //
 //	if (possibilitiesIndex == -1){
 //		//function 2 start
@@ -116,6 +136,11 @@ void init() {
 //    timetable[bestIndex].subjectlistindex += 1
 //	course_array[classarray[classIndex].courseIndex].periodAssigned[noOfPeriodsAssigned++] = bestIndex
 //	//function 5 end
+
+bool is_full(int period_index) {}
+bool is_overlapping(int period_index, int class_index) {}
+bool is_restricted(int period_index, int class_index, int* a) {}
+
 
 int main(){
     cout << "buffalo";

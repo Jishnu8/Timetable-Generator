@@ -63,7 +63,7 @@ void init() {
     while(1) {
         class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
-        periods_qty = course_ref->get_no_of_periods();
+        periods_qty = course_ref->no_of_periods_assigned;
 
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];

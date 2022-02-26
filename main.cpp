@@ -15,6 +15,7 @@ using namespace std;
 
 
 //global variables
+
 period* timetable = new period[42];
 clas* class_array = nullptr;
 clas* class_ = nullptr;

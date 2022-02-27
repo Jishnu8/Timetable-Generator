@@ -9,7 +9,7 @@ class period{
     int preferabilty_score;
 
     public:
-    clas* period_subject_list;
+    clas* period_subject_list; // make into clas array of size 7
     int period_subject_index;
     period();
     period(int);

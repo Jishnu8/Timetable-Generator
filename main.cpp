@@ -21,7 +21,7 @@ course courses[10];
 
 period* timetable = new period[42];
 clas* class_array = nullptr;
-clas* class_ = nullptr;
+//clas* class_ = nullptr;
 int class_index = 0;
 int capacity;
 int previous_index;
@@ -126,7 +126,7 @@ void put_in_timetable(int carray_index, int tt_index) {
 void init() {
 
     while(1) {
-        class_ = &class_array[class_index];
+        clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
         periods_qty = course_ref->no_of_periods_assigned;
 

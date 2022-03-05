@@ -40,7 +40,7 @@ void construct_class_array() {
     // iterate through course array, create class object, add to the linked list
     int num_of_classes = 0;
     int index = 0;
-    for(int i = 0; i < sizeof(courses); i++) {
+    for(int i = 0; i < sizeof(courses)/sizeof(course[0]); i++) {
         num_of_classes += courses[i].get_no_of_periods();
     }
     class_array = new clas[num_of_classes];

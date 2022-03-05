@@ -8,7 +8,7 @@
 
 
 using namespace std;
-
+teacher* teacher_list;
 period timetable[42];
 clas* class_array;
 int class_index = 0;
@@ -20,6 +20,9 @@ bool is_restricted(int period_index, int class_index, int* array_pointer);
 bool is_full(int period_index);
 bool is_overlapping(int period_index, int class_index);
 void function7(int best_index);
+int num_of_sheets(){
+    return 5;
+}
 
 bool is_restricted(int period_index, int class_index, int* array_pointer) {
     for (int i = 0; i < sizeof(array_pointer) / sizeof(array_pointer[0]); i++) {

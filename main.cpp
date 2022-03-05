@@ -13,10 +13,13 @@ period timetable[42];
 clas* class_array;
 int class_index = 0;
 int capacity;
+int course_length = 30;
+course* course_array;
 
 bool is_restricted(int period_index, int class_index, int* array_pointer);
 bool is_full(int period_index);
 bool is_overlapping(int period_index, int class_index);
+void function7(int best_index);
 
 bool is_restricted(int period_index, int class_index, int* array_pointer) {
     for (int i = 0; i < sizeof(array_pointer) / sizeof(array_pointer[0]); i++) {
@@ -71,6 +74,7 @@ void function7(int best_index){
     class_array[class_index].period_index -= 1;
     timetable[best_index].period_subject_index -= 1;
 
+    class_array[class_index].get_course_obj()->no_of_periods_assigned--;
 }
 
 int main(){

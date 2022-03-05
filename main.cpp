@@ -70,6 +70,7 @@ void find_possibilities_in_range(int a, int b, int index) {
     }
 }
 
+
 void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
 
     curr_class->backtrack_restrictions_size = 0;

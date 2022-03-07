@@ -17,7 +17,12 @@ using namespace std;
 
 //global variables
 
-course courses[10];
+course courses[10]; // provided by the input
+teacher* teachers; // to construct through input
+int num_of_courses;
+int num_of_teachers;
+
+
 
 period* timetable = new period[42];
 clas* class_array = nullptr;
@@ -36,19 +41,28 @@ int start_pos;
 int best_index;
 
 
+
 void construct_class_array() {
-    // iterate through course array, create class object, add to the linked list
+    // iterate through course array, create class object
     int num_of_classes = 0;
-    int index = 0;
-    for(int i = 0; i < sizeof(courses)/sizeof(course[0]); i++) {
-        num_of_classes += courses[i].get_no_of_periods();
-    }
-    class_array = new clas[num_of_classes];
-    for(int i = 0; i < sizeof(courses); i++) {
-        for(int j = 0; j < courses[i].get_no_of_periods(); j++) {
-            class_array[index++] = clas(teacher, &courses[i]);
+    course* teacher_courses = nullptr;
+    for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
+        teacher_courses = teachers[i].get_course_array();
+        for(int j = 0; j < sizeof(teacher_courses/teacher_courses[0]); j++) {
+            num_of_classes += teacher_courses[j].get_no_of_periods();
         }
     }
+
+//    int index = 0;
+//    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
+//        num_of_classes += courses[i].get_no_of_periods();
+//    }
+//    class_array = new clas[num_of_classes];
+//    for(int i = 0; i < sizeof(courses); i++) {
+//        for(int j = 0; j < courses[i].get_no_of_periods(); j++) {
+//            class_array[index++] = clas(teacher, &courses[i]);
+//        }
+//    }
 
 }
 

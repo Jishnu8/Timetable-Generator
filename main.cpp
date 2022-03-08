@@ -71,22 +71,6 @@ void construct_class_array() {
             class_array[index++] = clas(teachers[i], &teacher_courses[j]);
         }
     }
-
-
-
-
-
-//    int index = 0;
-//    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
-//        num_of_classes += courses[i].get_no_of_periods();
-//    }
-//    class_array = new clas[num_of_classes];ipconfig
-//    for(int i = 0; i < sizeof(courses); i++) {
-//        for(int j = 0; j < courses[i].get_no_of_periods(); j++) {
-//            class_array[index++] = clas(teacher, &courses[i]);
-//        }
-//    }
-
 }
 
 bool is_full(int period_index) {}

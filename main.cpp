@@ -67,7 +67,7 @@ void construct_class_array() {
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
-        for(int j = 0; j < sizeof(teacher_courses/teacher_courses[0]); j++) {
+        for(int j = 0; j < sizeof(teacher_courses)/sizeof(teacher_courses[0]); j++) {
             class_array[index++] = clas(teachers[i], &teacher_courses[j]);
         }
     }
@@ -83,7 +83,7 @@ void find_possibilities_in_range(int a, int b, int index) {
         // check conditions for i
         full = is_full(i);
         overlapping = is_overlapping(i, index);
-        t_restricted = is_restricted(i, index, class_array[index].backtrackRestrictions);
+        t_restricted = is_restricted(i, index, class_array[index].backtrack_restrictions);
         b_restricted = is_restricted(i, index, class_array[index].get_teacher_obj().get_teacher_restrictions());
         if(!full && !overlapping && !t_restricted && !b_restricted) {
             possibilities[++possibilities_index] = i;
@@ -95,7 +95,7 @@ void find_possibilities_in_range(int a, int b, int index) {
 void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
 
     curr_class->backtrack_restrictions_size = 0;
-    prev_class->backtrackRestrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
+    prev_class->backtrack_restrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
     timetable[prev_class->period_index].period_subject_index--;
     prev_class->period_index = -1;
     prev_class->get_course_obj()->no_of_periods_assigned--;
@@ -111,7 +111,7 @@ bool comp_wrt_cong(int a, int b) {
     return (timetable[a].period_subject_index < timetable[b].period_subject_index);
 }
 
-void sort_arr(arr, int len, char metric) {
+void sort_arr(int* arr, int len, char metric) {
     if(metric == 'p') {
         sort(arr, arr + len, comp_wrt_pref);
     } else {
@@ -138,10 +138,12 @@ void fill_most_pref() {
 void put_in_timetable(int carray_index, int tt_index) {
 
     period best_period = timetable[tt_index];
-    course* course_ = classarray[carray_index].get_course_obj();
-    best_period.period_subject_list[best_period.(++period_subject_index)] = class_array[carray_index];
+    course* course_ = class_array[carray_index].get_course_obj();
+    best_period.period_subject_list[best_period.period_subject_index] = class_array[carray_index];
+    best_period.period_subject_index++;
     class_array[carray_index].period_index = tt_index;
-    course_->periods_assigned[course_->(no_of_periods_assigned++)] = tt_index;
+    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;
+    course_->no_of_periods_assigned++;
 
 }
 

@@ -10,3 +10,5 @@ int period::get_preferability_score() const
 {
     return preferabilty_score;
 }
+
+period::period() {}

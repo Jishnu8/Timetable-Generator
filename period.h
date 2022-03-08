@@ -12,7 +12,8 @@ class period{
     clas* period_subject_list;
     int period_subject_index;
     period(int);
-    ~period();
+    period();
+
 
     int get_preferability_score() const;
 };

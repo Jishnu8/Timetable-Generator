@@ -4,7 +4,7 @@
 using namespace std;
 
 teacher::teacher(string nm, course* ca, int* tr)
-                :teacher_name(nm), course_array(new course[sizeof(ca)/sizeof(ca[0])]), 
+                :teacher_name(nm), course_array(new course[sizeof(ca)/sizeof(ca[0])]),
                 teacher_restrictions(new int[sizeof(tr)/sizeof(tr)])
 {
     for (int i = 0; i < sizeof(ca)/sizeof(ca[0]); i++){
@@ -16,6 +16,8 @@ teacher::teacher(string nm, course* ca, int* tr)
         teacher_restrictions[i] = tr[i];
     }
 }
+
+teacher::teacher() {}
 
 string teacher::get_teacher_name() const
 {

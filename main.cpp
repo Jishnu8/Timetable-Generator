@@ -2,9 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 #include "teacher.h"
+#include "teacher.cpp"
 #include "course.h"
+#include "course.cpp"
 #include "clas.h"
+#include "clas.cpp"
 #include "period.h"
+#include "period.cpp"
 
 
 using namespace std;
@@ -70,7 +74,7 @@ void function7(int best_index){
     for(int i = 0; i < sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0]); i++){
         temp[i] = class_array[class_index].backtrackRestrictions[i];
     }
-    temp[sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0]] = best_index;
+    temp[sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0])] = best_index;
     delete class_array[class_index].backtrackRestrictions;
     class_array[class_index].backtrackRestrictions = temp;
 

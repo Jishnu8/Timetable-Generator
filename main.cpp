@@ -42,22 +42,45 @@ int best_index;
 
 
 
+int get_num_of_classes() {
+
+    int num_of_classes = 0;
+
+    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
+
+        num_of_classes += courses[i].get_no_of_periods();
+
+    }
+
+    return num_of_classes;
+
+
+}
+
 void construct_class_array() {
     // iterate through course array, create class object
-    int num_of_classes = 0;
+
     course* teacher_courses = nullptr;
+    int num_of_classes = get_num_of_classes();
+    class_array = new clas[num_of_classes];
+    int index = 0;
+
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
         for(int j = 0; j < sizeof(teacher_courses/teacher_courses[0]); j++) {
-            num_of_classes += teacher_courses[j].get_no_of_periods();
+            class_array[index++] = clas(teachers[i], &teacher_courses[j]);
         }
     }
+
+
+
+
 
 //    int index = 0;
 //    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
 //        num_of_classes += courses[i].get_no_of_periods();
 //    }
-//    class_array = new clas[num_of_classes];
+//    class_array = new clas[num_of_classes];ipconfig
 //    for(int i = 0; i < sizeof(courses); i++) {
 //        for(int j = 0; j < courses[i].get_no_of_periods(); j++) {
 //            class_array[index++] = clas(teacher, &courses[i]);

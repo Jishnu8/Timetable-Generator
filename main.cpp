@@ -77,10 +77,6 @@ void construct_class_array() {
     }
 }
 
-bool is_full(int period_index) {}
-bool is_overlapping(int period_index, int class_index) {}
-bool is_restricted(int period_index, int class_index, int* a) {}
-
 void find_possibilities_in_range(int a, int b, int index) {
     bool full, overlapping, t_restricted, b_restricted;
     for(int i = a; i < b; i++) {
@@ -232,13 +228,13 @@ bool is_overlapping(int period_index, int class_index) {
 
 void function7(int best_index){
     timetable[best_index].period_subject_index -= 1;
-    int* temp = new int[sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0]) + 1];
-    for(int i = 0; i < sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0]); i++){
-        temp[i] = class_array[class_index].backtrackRestrictions[i];
+    int* temp = new int[sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0]) + 1];
+    for(int i = 0; i < sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0]); i++){
+        temp[i] = class_array[class_index].backtrack_restrictions[i];
     }
-    temp[sizeof(class_array[class_index].backtrackRestrictions) / sizeof(class_array[class_index].backtrackRestrictions[0])] = best_index;
-    delete class_array[class_index].backtrackRestrictions;
-    class_array[class_index].backtrackRestrictions = temp;
+    temp[sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0])] = best_index;
+    delete class_array[class_index].backtrack_restrictions;
+    class_array[class_index].backtrack_restrictions = temp;
 
     class_array[class_index].period_index -= 1;
     timetable[best_index].period_subject_index -= 1;

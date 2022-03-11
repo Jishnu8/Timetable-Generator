@@ -11,7 +11,8 @@ class clas{
     public:
     int period_index;
     int class_spacing;
-    int* backtrackRestrictions;
+    int* backtrack_restrictions;
+    int backtrack_restrictions_size;
     clas(teacher, course*);
     clas();
     ~clas();

@@ -41,6 +41,10 @@ int start_pos;
 int best_index;
 
 
+bool is_restricted(int period_index, int class_index, int* array_pointer);
+bool is_full(int period_index);
+bool is_overlapping(int period_index, int class_index);
+void function7(int best_index);
 
 int get_num_of_classes() {
 
@@ -148,7 +152,6 @@ void put_in_timetable(int carray_index, int tt_index) {
 }
 
 void init() {
-
     while(1) {
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
@@ -185,17 +188,6 @@ void init() {
 
 
     }
-
-}
-
-
-
-bool is_restricted(int period_index, int class_index, int* array_pointer);
-bool is_full(int period_index);
-bool is_overlapping(int period_index, int class_index);
-void function7(int best_index);
-int num_of_sheets(){
-    return 5;
 }
 
 bool is_restricted(int period_index, int class_index, int* array_pointer) {
@@ -225,14 +217,14 @@ bool is_overlapping(int period_index, int class_index) {
     string* clas_student_list;
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
         clas_student_list = timetable[period_index].period_subject_list[i].get_course_obj()->get_student_names();
-            for (int j = 0; j < sizeof(timetable_student_list) / sizeof(timetable_student_list[0]); j++) {
-                clas_student_list = class_array[class_index].get_course_obj()->get_student_names();
-                    for (int k = 0; k < sizeof(clas_student_list) / sizeof(clas_student_list[0]); k++) {
-                        if(timetable[period_index].period_subject_list[i].get_course_obj()->get_student_names()[j] == class_array[class_index].get_course_obj()->get_student_names()[k]){
-                            return true;
-                        }
+        for (int j = 0; j < sizeof(timetable_student_list) / sizeof(timetable_student_list[0]); j++) {
+            clas_student_list = class_array[class_index].get_course_obj()->get_student_names();
+            for (int k = 0; k < sizeof(clas_student_list) / sizeof(clas_student_list[0]); k++) {
+                if(timetable[period_index].period_subject_list[i].get_course_obj()->get_student_names()[j] == class_array[class_index].get_course_obj()->get_student_names()[k]){
+                    return true;
                 }
             }
+        }
     }
 
     return false;

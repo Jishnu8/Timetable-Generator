@@ -13,6 +13,7 @@ class teacher{
 
     public:
     teacher(string, course*, int*);
+    teacher();
 
     string get_teacher_name() const;
     course* get_course_array() const;

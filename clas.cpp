@@ -21,3 +21,5 @@ course* clas::get_course_obj() const
 {
     return course_obj;
 }
+
+clas::clas():course_obj(NULL) {}

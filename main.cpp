@@ -10,14 +10,27 @@
 #include "clas.cpp"
 #include "period.h"
 #include "period.cpp"
+#include <string>
 
 
 using namespace std;
 
 
 //global variables
+// provided by the input
+string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
+                            {"Shubham", "Auro", "Roshini", "Vibhu"},
+                            {"Narendran", "Auro", "Divyanshu"},
+                            {"Jishnu", "Roshini", "Harshini"},
+                            {"Vibhu", "Naren"}};
 
-course courses[10]; // provided by the input
+course courses[5] = {course(student_names[0],"CS",4),
+                      course(student_names[1],"Sociology",2),
+                      course(student_names[2], "Sex", 6),
+                      course(student_names[3], "Les Chouchous:)",1),
+                      course(student_names[4],"Closet",3)};
+
+
 teacher* teachers; // to construct through input
 int num_of_courses;
 int num_of_teachers;
@@ -246,6 +259,7 @@ void function7(int best_index){
 using namespace std;
 
 int main(){
+
     cout << "buffalo";
     return 0;
 }

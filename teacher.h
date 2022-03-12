@@ -8,12 +8,13 @@ using namespace std;
 
 class teacher{
     string teacher_name;
-    course* course_array;
+    course** course_array;
     int* teacher_restrictions;
 
     public:
     teacher(string, course*, int*);
     teacher();
+    ~teacher();
 
     string get_teacher_name() const;
     course* get_course_array() const;

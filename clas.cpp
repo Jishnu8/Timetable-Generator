@@ -22,4 +22,8 @@ course* clas::get_course_obj() const
     return course_obj;
 }
 
-clas::clas():course_obj(NULL) {}
+clas::clas():course_obj(NULL), backtrack_restrictions(NULL), period_index(0), backtrack_restrictions_size(0){}
+
+clas::~clas(){
+    delete[] backtrack_restrictions;
+}

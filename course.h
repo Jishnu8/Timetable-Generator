@@ -18,6 +18,7 @@ class course{
 
     course();
     course(string*, string, int);
+    ~course();
 
     string* get_student_names() const;
     string get_subject_name() const;

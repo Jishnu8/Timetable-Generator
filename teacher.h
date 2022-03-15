@@ -12,12 +12,12 @@ class teacher{
     int* teacher_restrictions;
 
     public:
-    teacher(string, course*, int*);
+    teacher(string, course**, int*);
     teacher();
     ~teacher();
 
     string get_teacher_name() const;
-    course* get_course_array() const;
+    course** get_course_array() const;
     int* get_teacher_restrictions() const;
 };
 

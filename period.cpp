@@ -6,7 +6,7 @@ period::period(int p): preferabilty_score(p){
     period_subject_index = -1;
 }
 
-period::period(): preferability_score(0), period_subject_list(NULL){}
+period::period(): preferabilty_score(0), period_subject_list(NULL){}
 
 period::~period(){
     delete[] period_subject_list;
@@ -17,6 +17,4 @@ int period::get_preferability_score() const
     return preferabilty_score;
 }
 
-period::period():preferabilty_score(0){
-    period_subject_index = -1;
-}
+

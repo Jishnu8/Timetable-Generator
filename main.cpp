@@ -17,8 +17,29 @@ using namespace std;
 
 //global variables
 
-course courses[10]; // provided by the input
-teacher* teachers; // to construct through input
+string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
+                            {"Shubham", "Auro", "Roshini", "Vibhu"},
+                            {"Narendran", "Auro", "Divyanshu"},
+                            {"Jishnu", "Roshini", "Harshini"},
+                            {"Vibhu", "Naren"}};
+
+course courses[5] = {course(student_names[0],"CS",4),
+                      course(student_names[1],"Sociology",2),
+                      course(student_names[2], "Machine Learning", 6),
+                      course(student_names[3], "Les Chouchous:)",1),
+                      course(student_names[4],"Closet",3)};
+
+course* course1[] = {&courses[0],&courses[2]};
+course* course2[] = {&courses[1],&courses[3]};
+course* course3[] = {&courses[4]};
+
+int restrictions1[] = {1};
+
+string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
+teacher teachers[3] = {teacher(teacher_names[0], course1, restrictions1),
+                        teacher(teacher_names[1], course2, restrictions1),
+                        teacher(teacher_names[2], course3, restrictions1)};
+
 int num_of_courses;
 int num_of_teachers;
 
@@ -26,7 +47,7 @@ int num_of_teachers;
 
 period* timetable = new period[42];
 clas* class_array = nullptr;
-//clas* class_ = nullptr;
+
 int class_index = 0;
 int capacity;
 int previous_index;
@@ -64,7 +85,7 @@ int get_num_of_classes() {
 void construct_class_array() {
     // iterate through course array, create class object
 
-    course* teacher_courses = nullptr;
+    course** teacher_courses = nullptr;
     int num_of_classes = get_num_of_classes();
     class_array = new clas[num_of_classes];
     int index = 0;
@@ -72,7 +93,7 @@ void construct_class_array() {
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
         for(int j = 0; j < sizeof(teacher_courses)/sizeof(teacher_courses[0]); j++) {
-            class_array[index++] = clas(teachers[i], &teacher_courses[j]);
+            class_array[index++] = clas(teachers[i], teacher_courses[j]);
         }
     }
 }
@@ -242,8 +263,6 @@ void function7(int best_index){
     class_array[class_index].get_course_obj()->no_of_periods_assigned--;
 }
 
-
-using namespace std;
 
 int main(){
     cout << "buffalo";

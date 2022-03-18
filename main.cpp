@@ -61,7 +61,6 @@ int most_pref_index;
 int start_pos;
 int best_index;
 
-
 bool is_restricted(int period_index, int class_index, int* array_pointer);
 bool is_full(int period_index);
 bool is_overlapping(int period_index, int class_index);
@@ -87,13 +86,17 @@ void construct_class_array() {
 
     course** teacher_courses = nullptr;
     int num_of_classes = get_num_of_classes();
+    cout << "num of classes: " << num_of_classes << endl;
     class_array = new clas[num_of_classes];
+    cout << "hi\n";
     int index = 0;
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
         for(int j = 0; j < sizeof(teacher_courses)/sizeof(teacher_courses[0]); j++) {
+            cout << "before\n";
             class_array[index++] = clas(teachers[i], teacher_courses[j]);
+            cout << "after\n";
         }
     }
 }
@@ -169,11 +172,14 @@ void put_in_timetable(int carray_index, int tt_index) {
 }
 
 void init() {
+    cout << "here\n";
     while(1) {
         clas* class_ = &class_array[class_index];
+        cout << "here\n";
         course_ref = class_->get_course_obj(); // a course pointer
+        cout << "here\n";
         periods_qty = course_ref->no_of_periods_assigned;
-
+        cout << "here\n";
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
             indices_skipped = class_->class_spacing*7 - previous_index%7;
@@ -202,7 +208,6 @@ void init() {
         sort_arr(most_pref, most_pref_index, 'c');
         best_index = most_pref[0];
         put_in_timetable(class_index, best_index); // function 5
-
 
     }
 }
@@ -265,6 +270,8 @@ void function7(int best_index){
 
 
 int main(){
+    construct_class_array();
+    init();
     cout << "buffalo";
     return 0;
 }

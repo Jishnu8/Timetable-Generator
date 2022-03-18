@@ -1,5 +1,6 @@
 #include "clas.h"
 #include "course.h"
+#include <iostream>
 #include <cmath>
 
 using namespace std;
@@ -19,6 +20,7 @@ teacher clas::get_teacher_obj() const
 
 course* clas::get_course_obj() const
 {
+    cout << "Hello\n";
     return course_obj;
 }
 

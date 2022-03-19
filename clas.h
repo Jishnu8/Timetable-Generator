@@ -15,7 +15,7 @@ class clas{
     int backtrack_restrictions_size;
     clas(teacher, course*);
     clas();
-    ~clas();
+    //~clas();
 
     teacher get_teacher_obj() const;
     course* get_course_obj() const;

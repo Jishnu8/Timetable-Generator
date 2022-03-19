@@ -1,5 +1,6 @@
 #include "teacher.h"
 #include "course.h"
+#include <iostream>
 
 using namespace std;
 
@@ -8,6 +9,9 @@ teacher::teacher(string nm, course** ca, int* tr)
                 course_array(new course*[sizeof(ca)/sizeof(ca[0])]),
                 teacher_restrictions(new int[sizeof(tr)/sizeof(tr)])
 {
+
+    cout << "teacher course length: " << sizeof(ca) << endl;
+    cout << "teacher course length: " << *(ca + 1) - *ca;
     for (int i = 0; i < sizeof(ca)/sizeof(ca[0]); i++){
         course_array[i] = ca[i];
     }

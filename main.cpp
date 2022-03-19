@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <algorithm>
 #include <string>
+#include <vector>
 #include "teacher.h"
 #include "teacher.cpp"
 #include "course.h"
@@ -29,9 +30,12 @@ course courses[5] = {course(student_names[0],"CS",4),
                       course(student_names[3], "Les Chouchous:)",1),
                       course(student_names[4],"Closet",3)};
 
-course* course1[] = {&courses[0],&courses[2]};
-course* course2[] = {&courses[1],&courses[3]};
-course* course3[] = {&courses[4]};
+course* course1[2] = {&courses[0],&courses[2]};
+course* course2[2] = {&courses[1],&courses[3]};
+course* course3[1] = {&courses[4]};
+
+
+int ints[45] = {9,99};
 
 int restrictions1[] = {1};
 
@@ -46,7 +50,8 @@ int num_of_teachers;
 
 
 period* timetable = new period[42];
-clas* class_array = nullptr;
+//clas* class_array = nullptr;
+vector<clas> class_array;
 
 int class_index = 0;
 int capacity;
@@ -87,15 +92,32 @@ void construct_class_array() {
     course** teacher_courses = nullptr;
     int num_of_classes = get_num_of_classes();
     cout << "num of classes: " << num_of_classes << endl;
-    class_array = new clas[num_of_classes];
+    //class_array = new clas[num_of_classes];
     cout << "hi\n";
     int index = 0;
 
+    cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
+
+//    cout << teachers[1].get_course_array()[0]->get_subject_name() << endl;
+//    cout << teachers[1].get_course_array()[1]->get_subject_name() << endl;
+
+
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
+        cout << "number of courses: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
+        cout << teacher_courses[0]->get_subject_name() << teacher_courses[1]->get_subject_name() << endl;
+        cout << "teacher name: " << teachers[i].get_teacher_name() << endl;
+        cout << "number of periods: " << teacher_courses[0]->get_no_of_periods() << endl;
         for(int j = 0; j < sizeof(teacher_courses)/sizeof(teacher_courses[0]); j++) {
             cout << "before\n";
-            class_array[index++] = clas(teachers[i], teacher_courses[j]);
+            for(int k = 0; k < teacher_courses[j]->get_no_of_periods(); k++) {
+                cout << "making class_array\n";
+                //class_array[index++] = clas(teachers[i], teacher_courses[j]);
+                cout << "Initial size: " << class_array.size() <<endl;
+                class_array.push_back(clas(teachers[i], teacher_courses[j]));
+
+            }
+
             cout << "after\n";
         }
     }
@@ -270,6 +292,8 @@ void function7(int best_index){
 
 
 int main(){
+
+    cout << "calculating size outside: " << sizeof(course1)/sizeof(course1[0]) << endl;
     construct_class_array();
     init();
     cout << "buffalo";

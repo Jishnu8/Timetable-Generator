@@ -19,10 +19,10 @@ course::course(string* stu, string sub, int no)
     no_of_periods_assigned = 0;
 }
 
-course::~course(){
-    delete[] student_names;
-    delete[] periods_assigned;
-}
+//course::~course(){
+//    delete[] student_names;
+//    delete[] periods_assigned;
+//}
 
 string* course::get_student_names() const
 {

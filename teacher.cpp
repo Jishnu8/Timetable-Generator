@@ -22,10 +22,10 @@ teacher::teacher(string nm, course** ca, int size1, int* tr)
 
 teacher::teacher() : teacher_restrictions(NULL), course_array(NULL) {}
 
-teacher::~teacher(){
-    delete[] course_array;
-    delete[] teacher_restrictions;
-}
+//teacher::~teacher(){
+//    delete[] course_array;
+//    delete[] teacher_restrictions;
+//}
 
 string teacher::get_teacher_name() const
 {

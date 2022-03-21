@@ -14,7 +14,7 @@ class teacher{
     public:
     teacher(string, course**,int, int*);
     teacher();
-    ~teacher();
+    //~teacher();
 
     string get_teacher_name() const;
     course** get_course_array() const;

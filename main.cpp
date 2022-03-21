@@ -40,9 +40,9 @@ int ints[45] = {9,99};
 int restrictions1[] = {1};
 
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
-teacher teachers[3] = {teacher(teacher_names[0], course1, restrictions1),
-                        teacher(teacher_names[1], course2, restrictions1),
-                        teacher(teacher_names[2], course3, restrictions1)};
+teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1),
+                        teacher(teacher_names[1],course2,2,restrictions1),
+                        teacher(teacher_names[2],course3,1,restrictions1)};
 
 int num_of_courses;
 int num_of_teachers;
@@ -292,7 +292,6 @@ void function7(int best_index){
 
 
 int main(){
-
     cout << "calculating size outside: " << sizeof(course1)/sizeof(course1[0]) << endl;
     construct_class_array();
     init();

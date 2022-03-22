@@ -182,20 +182,19 @@ void fill_most_pref() {
 
 int put_in_timetable(int carray_index, int tt_index) {
 
-    cout << "TT: " << tt_index << endl;
-    period best_period = timetable[tt_index];
-    cout << "Pref: " << best_period.get_preferability_score() << endl;
-//    course* course_ = class_array[carray_index].get_course_obj();
-//    best_period.period_subject_index++;
-//    cout << "In put_in_tt, period subject index: " << best_period.period_subject_index << endl;
-//    best_period.period_subject_list[best_period.period_subject_index] = class_array[carray_index];
-//
-//    class_array[carray_index].period_index = tt_index;cout << "Passed\n";
-//    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;cout << "Passed\n";
-//    course_->no_of_periods_assigned++;
-//    cout << course_->no_of_periods_assigned;
+    //cout << "TT: " << tt_index << endl;
+    //period best_period = timetable[tt_index];
+    //cout << "Pref: " << best_period.get_preferability_score() << endl;
+    course* course_ = class_array[carray_index].get_course_obj();
+    timetable[tt_index].period_subject_index++;
+    cout << "In put_in_tt, period subject index: " << timetable[tt_index].period_subject_index << endl;
+    //error in the following line
+    timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = class_array[carray_index];
+    class_array[carray_index].period_index = tt_index;cout << "Passed\n";
+    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;cout << "Passed\n";
+    course_->no_of_periods_assigned++;
+    cout << course_->no_of_periods_assigned;
     cout << "Test\n";
-    cout << "Test2\n";
     return 5;
 }
 

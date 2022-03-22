@@ -180,17 +180,23 @@ void fill_most_pref() {
 
 }
 
-void put_in_timetable(int carray_index, int tt_index) {
+int put_in_timetable(int carray_index, int tt_index) {
 
+    cout << "TT: " << tt_index << endl;
     period best_period = timetable[tt_index];
-    course* course_ = class_array[carray_index].get_course_obj();
-    best_period.period_subject_index++;
-    cout << "In put_in_tt, period subject index: " << best_period.period_subject_index << endl;
-    best_period.period_subject_list[best_period.period_subject_index] = class_array[carray_index];
-    class_array[carray_index].period_index = tt_index;
-    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;
-    course_->no_of_periods_assigned++;
-
+    cout << "Pref: " << best_period.get_preferability_score() << endl;
+//    course* course_ = class_array[carray_index].get_course_obj();
+//    best_period.period_subject_index++;
+//    cout << "In put_in_tt, period subject index: " << best_period.period_subject_index << endl;
+//    best_period.period_subject_list[best_period.period_subject_index] = class_array[carray_index];
+//
+//    class_array[carray_index].period_index = tt_index;cout << "Passed\n";
+//    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;cout << "Passed\n";
+//    course_->no_of_periods_assigned++;
+//    cout << course_->no_of_periods_assigned;
+    cout << "Test\n";
+    cout << "Test2\n";
+    return 5;
 }
 
 void init() {
@@ -233,7 +239,8 @@ void init() {
         fill_most_pref(); // function 4 (not good)
         sort_arr(most_pref, most_pref_index, 'c');
         best_index = most_pref[0];
-        put_in_timetable(class_index, best_index); // function 5
+        cout << put_in_timetable(class_index, best_index); // function 5
+        cout << "Test3\n";
         cout << "End of iteration\n";
 
     }

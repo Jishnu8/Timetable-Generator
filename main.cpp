@@ -35,8 +35,6 @@ course* course2[2] = {&courses[1],&courses[3]};
 course* course3[1] = {&courses[4]};
 
 
-int ints[45] = {9,99};
-
 int restrictions1[] = {1};
 
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
@@ -189,12 +187,13 @@ int put_in_timetable(int carray_index, int tt_index) {
     timetable[tt_index].period_subject_index++;
     cout << "In put_in_tt, period subject index: " << timetable[tt_index].period_subject_index << endl;
     //error in the following line
-    timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = class_array[carray_index];
-    class_array[carray_index].period_index = tt_index;cout << "Passed\n";
-    course_->periods_assigned[course_->no_of_periods_assigned] = tt_index;cout << "Passed\n";
-    course_->no_of_periods_assigned++;
+    timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = &class_array[carray_index];
+    class_array[carray_index].period_index = tt_index;
+    (course_->periods_assigned)[course_->no_of_periods_assigned] = tt_index;
+    cout << "period: assigned " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
+    (course_->no_of_periods_assigned)++;
     cout << course_->no_of_periods_assigned;
-    cout << "Test\n";
+    cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
     return 5;
 }
 
@@ -208,6 +207,7 @@ void init() {
         cout << "Periods quantity: " << periods_qty << endl;
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
+            cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
             indices_skipped = class_->class_spacing*7 - previous_index%7;
         } else {
             previous_index = 0;
@@ -266,20 +266,20 @@ bool is_full(int period_index) {
 }
 
 bool is_overlapping(int period_index, int class_index) {
-    clas* period_subject_list = timetable[period_index].period_subject_list;
+    clas** period_subject_list = timetable[period_index].period_subject_list;
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
-        if (period_subject_list[i].get_teacher_obj().get_teacher_name() == class_array[class_index].get_teacher_obj().get_teacher_name()) {
+        if (period_subject_list[i]->get_teacher_obj().get_teacher_name() == class_array[class_index].get_teacher_obj().get_teacher_name()) {
             return true;
         }
     }
     string* timetable_student_list;
     string* clas_student_list;
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
-        clas_student_list = timetable[period_index].period_subject_list[i].get_course_obj()->get_student_names();
+        clas_student_list = timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names();
         for (int j = 0; j < sizeof(timetable_student_list) / sizeof(timetable_student_list[0]); j++) {
             clas_student_list = class_array[class_index].get_course_obj()->get_student_names();
             for (int k = 0; k < sizeof(clas_student_list) / sizeof(clas_student_list[0]); k++) {
-                if(timetable[period_index].period_subject_list[i].get_course_obj()->get_student_names()[j] == class_array[class_index].get_course_obj()->get_student_names()[k]){
+                if(timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names()[j] == class_array[class_index].get_course_obj()->get_student_names()[k]){
                     return true;
                 }
             }

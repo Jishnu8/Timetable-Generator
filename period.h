@@ -11,7 +11,7 @@ class period{
     public:
     static int max_class;
 
-    clas* period_subject_list;
+    clas** period_subject_list;
     int period_subject_index;
     period();
     period(int);

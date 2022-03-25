@@ -16,6 +16,7 @@
 using namespace std;
 
 
+
 //global variables
 
 string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
@@ -35,12 +36,13 @@ course* course2[2] = {&courses[1],&courses[3]};
 course* course3[1] = {&courses[4]};
 
 
-int restrictions1[] = {1};
+int restrictions1[1] = {1};
+int r_size = sizeof(restrictions1)/sizeof(restrictions1[0]);
 
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
-teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1),
-                        teacher(teacher_names[1],course2,2,restrictions1),
-                        teacher(teacher_names[2],course3,1,restrictions1)};
+teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size),
+                        teacher(teacher_names[1],course2,2,restrictions1,r_size),
+                        teacher(teacher_names[2],course3,1,restrictions1,r_size)};
 
 int num_of_courses;
 int num_of_teachers;

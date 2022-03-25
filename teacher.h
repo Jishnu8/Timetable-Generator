@@ -12,7 +12,7 @@ class teacher{
     int* teacher_restrictions;
 
     public:
-    teacher(string, course**,int, int*);
+    teacher(string, course**,int, int*, int);
     teacher();
     //~teacher();
 

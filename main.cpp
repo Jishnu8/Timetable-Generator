@@ -93,7 +93,7 @@ void construct_class_array() {
     int num_of_classes = get_num_of_classes();
     int index = 0;
 
-    cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
+    //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
@@ -105,26 +105,30 @@ void construct_class_array() {
         }
     }
 
-    cout << "Class array constructed!\n";
+   // cout << "Class array constructed!\n";
 
 }
 
 void find_possibilities_in_range(int a, int b, int index) {
     bool full, overlapping, t_restricted, b_restricted;
-    cout << "Finding possibilities between " << a << " and " << b << endl;
+    //cout << "Finding possibilities between " << a << " and " << b << endl;
     for(int i = a; i < b; i++) {
         // check conditions for i
-        cout << "Checking period " << i << endl;
+       // cout << "Checking period " << i << endl;
         full = is_full(i);
-        cout << "Full: " << full << endl;
+        //cout << "Full: " << full << endl;
         overlapping = is_overlapping(i, index);
-        cout << "Overlapping: " << overlapping << endl;
+       // cout << "Overlapping: " << overlapping << endl;
+        cout << "Checking b restricitons:" << endl;
+        //cout << "B restrictions size: " <<
         b_restricted = is_restricted(i, index, class_array[index].backtrack_restrictions);
-        cout << "Is in backtrack restrictions: " << b_restricted << endl;
+       // cout << "Is in backtrack restrictions: " << b_restricted << endl;
+        cout << "Checking t restricitons:" << endl;
+        cout << "Teacher restrictions size: " << sizeof(class_array[index].get_teacher_obj().get_teacher_restrictions())/sizeof((class_array[index].get_teacher_obj().get_teacher_restrictions())[0]) << endl;
         t_restricted = is_restricted(i, index, class_array[index].get_teacher_obj().get_teacher_restrictions());
-        cout << "Is in teacher restrictions: " << t_restricted << endl;
+       // cout << "Is in teacher restrictions: " << t_restricted << endl;
         if(!full && !overlapping && !t_restricted && !b_restricted) {
-            cout << i << " is a possibility\n";
+           // cout << i << " is a possibility\n";
             possibilities[++possibilities_index] = i;
         }
     }
@@ -152,14 +156,14 @@ bool comp_wrt_cong(int a, int b) {
 
 void sort_arr(int* arr, int len, char metric) {
     if(metric == 'p') {
-        cout << "Sorting wrt preference\n";
+        //cout << "Sorting wrt preference\n";
         sort(arr, arr + len, comp_wrt_pref);
-        cout << "Sorted wrt preference\n";
+        //cout << "Sorted wrt preference\n";
     } else {
         if(metric == 'c') {
-            cout << "Sorting wrt congestion\n";
+           // cout << "Sorting wrt congestion\n";
             sort(arr, arr + len, comp_wrt_cong);
-            cout << "Sorted wrt congestion\n";
+            //cout << "Sorted wrt congestion\n";
         }
     }
 }
@@ -169,12 +173,12 @@ void fill_most_pref() {
     most_pref[0] = possibilities[possibilities_index];
     most_pref_index = 1;
     float highest_score = timetable[most_pref[0]].get_preferability_score();
-    cout << "Possibilities index: " << possibilities_index << endl;
+   // cout << "Possibilities index: " << possibilities_index << endl;
     for(int i = possibilities_index-1; i >= 0; i--) {
         if(timetable[possibilities[i]].get_preferability_score() < highest_score) {
             break;
         }
-        cout << "Filling most_pref\n";
+        //cout << "Filling most_pref\n";
         most_pref[most_pref_index++] = possibilities[i];
     }
 
@@ -187,15 +191,15 @@ int put_in_timetable(int carray_index, int tt_index) {
     //cout << "Pref: " << best_period.get_preferability_score() << endl;
     course* course_ = class_array[carray_index].get_course_obj();
     timetable[tt_index].period_subject_index++;
-    cout << "In put_in_tt, period subject index: " << timetable[tt_index].period_subject_index << endl;
+
     //error in the following line
     timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = &class_array[carray_index];
     class_array[carray_index].period_index = tt_index;
     (course_->periods_assigned)[course_->no_of_periods_assigned] = tt_index;
-    cout << "period: assigned " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
+   // cout << "period assigned " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
     (course_->no_of_periods_assigned)++;
-    cout << course_->no_of_periods_assigned;
-    cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
+    //cout << course_->no_of_periods_assigned;
+   // cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
     return 5;
 }
 
@@ -204,12 +208,12 @@ void init() {
     while(1) {
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
-        cout << "Course: " << course_ref->get_subject_name() << endl;
+        //cout << "Course: " << course_ref->get_subject_name() << endl;
         periods_qty = course_ref->no_of_periods_assigned;
-        cout << "Periods quantity: " << periods_qty << endl;
+        //cout << "Periods quantity: " << periods_qty << endl;
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
-            cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
+            //cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
             indices_skipped = class_->class_spacing*7 - previous_index%7;
         } else {
             previous_index = 0;
@@ -219,15 +223,15 @@ void init() {
         possibilities_index = -1;
         start_pos = previous_index + indices_skipped;
         find_possibilities_in_range(start_pos, start_pos + 7, class_index); // function 1
-        cout << "Possibilities found\n";
+        //cout << "Possibilities found\n";
 
         if(possibilities_index == -1) {
             if(--(class_->class_spacing) == 0) { // if backtracking's necessary
                 if(class_index == 0) { // if all possibilities exhausted
-                    cout << "All possibilities exhausted\n";
+                   // cout << "All possibilities exhausted\n";
                     return;
                 }
-                cout << "Backtracking\n";
+                //cout << "Backtracking\n";
                 backtrack_to_prev_class(class_, &class_array[class_index-1]); // function 2
                 class_index--;
             }
@@ -240,15 +244,16 @@ void init() {
         fill_most_pref(); // function 4 (not good)
         sort_arr(most_pref, most_pref_index, 'c');
         best_index = most_pref[0];
-        cout << put_in_timetable(class_index, best_index); // function 5
-        cout << "Test3\n";
-        cout << "End of iteration\n";
+       // cout << put_in_timetable(class_index, best_index); // function 5
+        //cout << "End of iteration\n";
 
     }
 }
 
 bool is_restricted(int period_index, int class_index, int* array_pointer) {
+    cout << "Restrictions size: " << sizeof(array_pointer) / sizeof(array_pointer[0]) << endl;
     if(array_pointer != nullptr) {
+        //for (int i = 0; i < sizeof(array_pointer) / sizeof(array_pointer[0]); i++) {
         for (int i = 0; i < sizeof(array_pointer) / sizeof(array_pointer[0]); i++) {
             cout << "Class in restrictions: " << array_pointer[i] << endl;
             if (period_index == array_pointer[i]) {
@@ -256,6 +261,9 @@ bool is_restricted(int period_index, int class_index, int* array_pointer) {
             }
         }
     }
+
+    getchar();
+
 
     return false;
 }
@@ -309,7 +317,7 @@ void function7(int best_index){
 
 
 int main(){
-    cout << "calculating size outside: " << sizeof(course1)/sizeof(course1[0]) << endl;
+
     construct_class_array();
     init();
     cout << "buffalo";

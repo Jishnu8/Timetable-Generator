@@ -12,6 +12,7 @@ clas::clas(teacher t, course* c): teacher_obj(t)
     period_index = -1;
     class_spacing = ceil(7/c->get_no_of_periods());
     backtrack_restrictions = nullptr;
+    backtrack_restrictions_size = 0;
 }
 
 teacher clas::get_teacher_obj() const

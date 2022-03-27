@@ -14,6 +14,7 @@ class teacher{
     public:
     teacher(string, course**,int, int*, int);
     teacher();
+    int teacher_restrictions_size;
     //~teacher();
 
     string get_teacher_name() const;

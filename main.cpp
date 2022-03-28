@@ -245,6 +245,11 @@ void init() {
         cout << "End of iteration\n";
         class_index++;
 
+        if(class_index >= class_array.size()) {
+            cout << "We did it" << endl;
+            break;
+        }
+
     }
 }
 
@@ -270,7 +275,11 @@ bool is_full(int period_index) {
 
 bool is_overlapping(int period_index, int class_index) {
     clas** period_subject_list = timetable[period_index].period_subject_list;
+        cout << "Made it!" << endl;
+
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
+
+        cout << period_subject_list[i]->get_teacher_obj().get_teacher_name() << endl;
         if (period_subject_list[i]->get_teacher_obj().get_teacher_name() == class_array[class_index].get_teacher_obj().get_teacher_name()) {
             return true;
         }
@@ -314,6 +323,7 @@ int main(){
     construct_class_array();
     init();
     cout << "buffalo";
+    getchar();
     return 0;
 }
 

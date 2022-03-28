@@ -34,6 +34,7 @@ teacher::teacher() : teacher_restrictions(NULL), course_array(NULL) {}
 
 string teacher::get_teacher_name() const
 {
+    cout << "Getting teacher name" << endl;
     return teacher_name;
 }
 

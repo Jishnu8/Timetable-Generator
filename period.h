@@ -10,6 +10,7 @@ class period{
 
     public:
     static int max_class;
+    void print_classes();
 
     clas** period_subject_list;
     int period_subject_index;

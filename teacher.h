@@ -10,9 +10,10 @@ class teacher{
     string teacher_name;
     course** course_array;
     int* teacher_restrictions;
+    int num_courses;
 
     public:
-    teacher(string, course**,int, int*, int);
+    teacher(string, course**,int, int*, int, int);
     teacher();
     int teacher_restrictions_size;
     //~teacher();
@@ -20,6 +21,7 @@ class teacher{
     string get_teacher_name() const;
     course** get_course_array() const;
     int* get_teacher_restrictions() const;
+    int get_num_courses() const;
 };
 
 

@@ -42,16 +42,17 @@ int restrictions1[1] = {1};
 int r_size = sizeof(restrictions1)/sizeof(restrictions1[0]);
 
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
-teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size),
-                        teacher(teacher_names[1],course2,2,restrictions1,r_size),
-                        teacher(teacher_names[2],course3,1,restrictions1,r_size)};
+teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size, 2),
+                        teacher(teacher_names[1],course2,2,restrictions1,r_size, 2),
+                        teacher(teacher_names[2],course3,1,restrictions1,r_size, 1)};
 
 int num_of_courses;
 int num_of_teachers;
 
 
-
-period* timetable = new period[42];
+int num_periods = 42;
+int num_periods_per_day = 7;
+period* timetable = new period[num_periods];
 //clas* class_array = nullptr;
 vector<clas> class_array;
 
@@ -72,6 +73,7 @@ bool is_restricted(int period_index, int class_index, int* array_pointer, int r_
 bool is_full(int period_index);
 bool is_overlapping(int period_index, int class_index);
 void function7(int best_index);
+void print_timetable();
 
 int get_num_of_classes() {
 
@@ -99,8 +101,8 @@ void construct_class_array() {
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
-
-        for(int j = 0; j < sizeof(teacher_courses)/sizeof(teacher_courses[0]); j++) {
+        //cout<<"Number of courses with teacher: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
+        for(int j = 0; j < teachers[i].get_num_courses(); j++) {
             for(int k = 0; k < teacher_courses[j]->get_no_of_periods(); k++) {
                 class_array.push_back(clas(teachers[i], teacher_courses[j]));
             }
@@ -246,7 +248,20 @@ void init() {
         class_index++;
 
         if(class_index >= class_array.size()) {
-            cout << "We did it" << endl;
+            print_timetable();
+            /*if (classIndex == classArray.length){
+		//function 6 start
+		output solution
+		//function 6 end
+		classIndex -= 1
+		//function 7 start
+		remove classarray[classIndex] in timetable[bestIndex]
+		classArray[classIndex].backtrackRestrcition.append(bestIndex)
+		classArray[classIndex].periodIndex = -1
+		timetable[bestIndex].subjectlistindex -= 1
+		course_array[classarray[classIndex].courseIndex].noOfPeriodsAssigned -= 1
+		//function 7 end
+	}*/
             break;
         }
 
@@ -315,6 +330,14 @@ void function7(int best_index){
     timetable[best_index].period_subject_index -= 1;
 
     class_array[class_index].get_course_obj()->no_of_periods_assigned--;
+}
+
+void print_timetable(){
+    for(int i = 0; i < num_periods; i++){
+        cout << "Period " << i+1 << ":\n";
+        timetable[i].print_classes();
+        cout << "\n";
+    }
 }
 
 

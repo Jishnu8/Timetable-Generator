@@ -25,7 +25,7 @@ string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
                             {"Shubham", "Auro", "Roshini", "Vibhu"},
                             {"Narendran", "Auro", "Divyanshu"},
                             {"Jishnu", "Roshini", "Harshini"},
-                            {"Vibhu", "Naren"}};
+                            {"Vibhu", "Narendran"}};
 
 course courses[5] = {course(student_names[0],"CS",4),
                       course(student_names[1],"Sociology",2),
@@ -206,10 +206,10 @@ void init() {
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
         cout << "Course: " << course_ref->get_subject_name() << endl;
-        getchar();
+        //getchar();
         periods_qty = course_ref->no_of_periods_assigned;
         cout << "Number of periods already assigned: " << periods_qty << endl;
-        getchar();
+        //getchar();
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
             cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
@@ -249,6 +249,10 @@ void init() {
 
         if(class_index >= class_array.size()) {
             print_timetable();
+            class_index--;
+            function7(best_index);
+            cout << "Going to backtrack\n";
+            getchar();
             /*if (classIndex == classArray.length){
 		//function 6 start
 		output solution
@@ -262,7 +266,7 @@ void init() {
 		course_array[classarray[classIndex].courseIndex].noOfPeriodsAssigned -= 1
 		//function 7 end
 	}*/
-            break;
+
         }
 
     }
@@ -299,10 +303,10 @@ bool is_overlapping(int period_index, int class_index) {
             return true;
         }
     }
-    string* timetable_student_list;
-    string* clas_student_list;
+    string* timetable_student_list = NULL;
+    string* clas_student_list = NULL;
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
-        clas_student_list = timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names();
+        timetable_student_list = timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names();
         for (int j = 0; j < sizeof(timetable_student_list) / sizeof(timetable_student_list[0]); j++) {
             clas_student_list = class_array[class_index].get_course_obj()->get_student_names();
             for (int k = 0; k < sizeof(clas_student_list) / sizeof(clas_student_list[0]); k++) {
@@ -318,18 +322,23 @@ bool is_overlapping(int period_index, int class_index) {
 
 void function7(int best_index){
     timetable[best_index].period_subject_index -= 1;
-    int* temp = new int[sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0]) + 1];
-    for(int i = 0; i < sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0]); i++){
+    cout << "Entered function 7" << endl;
+    int* temp = new int[++class_array[class_index].backtrack_restrictions_size];
+
+    cout << "Backtrack size: " << class_array[class_index].backtrack_restrictions_size << endl;
+    for(int i = 0; i < class_array[class_index].backtrack_restrictions_size - 1; i++){
         temp[i] = class_array[class_index].backtrack_restrictions[i];
     }
-    temp[sizeof(class_array[class_index].backtrack_restrictions) / sizeof(class_array[class_index].backtrack_restrictions[0])] = best_index;
+    temp[class_array[class_index].backtrack_restrictions_size-1] = best_index;
     delete class_array[class_index].backtrack_restrictions;
     class_array[class_index].backtrack_restrictions = temp;
 
-    class_array[class_index].period_index -= 1;
+    class_array[class_index].period_index = -1;
     timetable[best_index].period_subject_index -= 1;
+    cout << "Test1\n";
 
     class_array[class_index].get_course_obj()->no_of_periods_assigned--;
+    cout << "function 7 done\n";
 }
 
 void print_timetable(){

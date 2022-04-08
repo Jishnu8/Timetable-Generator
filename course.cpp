@@ -8,9 +8,9 @@ course::course(): student_names(NULL)
     subject_name = "";
 };
 
-course::course(string* stu, string sub, int no)
+course::course(string* stu, string sub, int no_periods, int no_students)
                 : student_names(new string[sizeof(stu)/sizeof(stu[0])]), subject_name(sub),
-                no_of_periods(no)
+                no_of_periods(no_periods), no_of_students(no_students)
 {
     for (int i = 0; i < sizeof(stu)/sizeof(stu[0]); i++){
         student_names[i] = stu[i];
@@ -37,4 +37,8 @@ string course::get_subject_name() const
 int course::get_no_of_periods() const
 {
     return no_of_periods;
+}
+
+int course::get_no_of_students() const{
+    return no_of_students;
 }

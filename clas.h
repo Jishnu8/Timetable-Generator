@@ -15,6 +15,7 @@ class clas{
     int backtrack_restrictions_size;
     clas(teacher, course*);
     clas();
+    int calc_class_spacing();
     //~clas();
 
     teacher get_teacher_obj() const;

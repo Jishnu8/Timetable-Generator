@@ -15,8 +15,8 @@ course::course(string* stu, string sub, int no_periods, int no_students)
     for (int i = 0; i < sizeof(stu)/sizeof(stu[0]); i++){
         student_names[i] = stu[i];
     }
-    periods_assigned = new int[10];
     no_of_periods_assigned = 0;
+    periods_assigned = new int[no_of_periods];
 }
 
 //course::~course(){

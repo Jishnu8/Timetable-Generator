@@ -136,22 +136,15 @@ void find_possibilities_in_range(int a, int b, int index) {
 
 
 void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
-    cout<<"1";
     curr_class->backtrack_restrictions_size = 0;
     curr_class->class_spacing = curr_class->calc_class_spacing();
     cout << "Class spacing now: " << curr_class->class_spacing << endl;
     getchar();
-    cout<<"2";
     prev_class->backtrack_restrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
-    cout<<"3";
     timetable[prev_class->period_index].period_subject_index--;
-    cout<<"4";
     prev_class->period_index = -1;
-    cout<<"5";
+    curr_class->period_index = -1;
     prev_class->get_course_obj()->no_of_periods_assigned--;
-    cout<<"6";
-    // reset class spacing
-
 }
 
 
@@ -207,12 +200,13 @@ void put_in_timetable(int carray_index, int tt_index) {
     //cout << "Period assigned: " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
     (course_->no_of_periods_assigned)++;
     cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
+    timetable[tt_index].print_classes();
 }
 
 void init() {
 
     while(1) {
-        clas* class_ = &class_array[class_index];
+        clas* class_ = &(class_array[class_index]);
         course_ref = class_->get_course_obj(); // a course pointer
         cout << "Course: " << course_ref->get_subject_name() << endl;
         //getchar();
@@ -242,6 +236,7 @@ void init() {
                     return;
                 }
                 cout << "Backtracking\n";
+                class_array[class_index].get_course_obj()->no_of_periods_assigned--;
                 backtrack_to_prev_class(class_, &class_array[class_index-1]); // function 2
                 cout << "Backtracking successful\n";
                 class_index--;
@@ -316,7 +311,6 @@ bool is_full(int period_index) {
 
 bool is_overlapping(int period_index, int class_index) {
     clas** period_subject_list = timetable[period_index].period_subject_list;
-        cout << "Made it!" << endl;
 
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
 

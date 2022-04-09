@@ -7,9 +7,8 @@ period::period(int p): preferabilty_score(p){
 }
 
 period::period(): preferabilty_score(0){
-
-    period_subject_list = new clas*[10];
     period_subject_index = -1;
+    period_subject_list = new clas*[10];
 }
 
 period::~period(){

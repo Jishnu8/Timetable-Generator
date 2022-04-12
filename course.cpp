@@ -16,7 +16,8 @@ course::course(string* stu, string sub, int no_periods, int no_students)
         student_names[i] = stu[i];
     }
     no_of_periods_assigned = 0;
-    periods_assigned = new int[no_of_periods];
+    //periods_assigned = new int[no_of_periods];
+    periods_assigned = new int[10];
 }
 
 //course::~course(){
@@ -26,6 +27,10 @@ course::course(string* stu, string sub, int no_periods, int no_students)
 
 string* course::get_student_names() const
 {
+    cout << "Printing\n";
+    getchar();
+    cout << student_names[0];
+    getchar();
     return student_names;
 }
 

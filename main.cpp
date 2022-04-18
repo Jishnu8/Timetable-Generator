@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdio.h>
-#include<string.h>
 #include <algorithm>
 #include <string>
 #include <vector>
@@ -137,15 +136,22 @@ void find_possibilities_in_range(int a, int b, int index) {
 
 
 void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
+    cout<<"1";
     curr_class->backtrack_restrictions_size = 0;
     curr_class->class_spacing = curr_class->calc_class_spacing();
     cout << "Class spacing now: " << curr_class->class_spacing << endl;
     getchar();
+    cout<<"2";
     prev_class->backtrack_restrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
+    cout<<"3";
     timetable[prev_class->period_index].period_subject_index--;
+    cout<<"4";
     prev_class->period_index = -1;
-    //curr_class->period_index = -1;
+    cout<<"5";
     prev_class->get_course_obj()->no_of_periods_assigned--;
+    cout<<"6";
+    // reset class spacing
+
 }
 
 
@@ -201,7 +207,6 @@ void put_in_timetable(int carray_index, int tt_index) {
     //cout << "Period assigned: " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
     (course_->no_of_periods_assigned)++;
     cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
-    //timetable[tt_index].print_classes();
 }
 
 void init() {
@@ -237,7 +242,6 @@ void init() {
                     return;
                 }
                 cout << "Backtracking\n";
-                //class_array[class_index].get_course_obj()->no_of_periods_assigned--;
                 backtrack_to_prev_class(class_, &class_array[class_index-1]); // function 2
                 cout << "Backtracking successful\n";
                 class_index--;
@@ -312,31 +316,21 @@ bool is_full(int period_index) {
 
 bool is_overlapping(int period_index, int class_index) {
     clas** period_subject_list = timetable[period_index].period_subject_list;
+        cout << "Made it!" << endl;
 
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
 
         cout << period_subject_list[i]->get_teacher_obj().get_teacher_name() << endl;
-        cout << "Test: " << class_array[class_index].get_teacher_obj().get_teacher_name() << endl << endl << endl << endl;
-        //if (strcmp(period_subject_list[i]->get_teacher_obj().get_teacher_name()), class_array[class_index].get_teacher_obj().get_teacher_name() != 0){
         if (period_subject_list[i]->get_teacher_obj().get_teacher_name() == class_array[class_index].get_teacher_obj().get_teacher_name()) {
-            cout << "hi";
             return true;
         }
     }
-
+    string* timetable_student_list = NULL;
+    string* clas_student_list = NULL;
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
-        cout << "1" << endl;
         for (int j = 0; j < timetable[period_index].period_subject_list[i]->get_course_obj()->get_no_of_students(); j++) {
-            cout << "2" << endl;
             for (int k = 0; k < class_array[class_index].get_course_obj()->get_no_of_students(); k++) {
-                cout << "3" << endl;
-                cout << timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names()[j] << endl;
-                cout << "Test\n";
-                cout << timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names()[k] << endl;
-                getchar();
-                if(timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names()[j] ==
-                   class_array[class_index].get_course_obj()->get_student_names()[k]){
-                    cout << "4" << endl;
+                if(timetable[period_index].period_subject_list[i]->get_course_obj()->get_student_names()[j] == class_array[class_index].get_course_obj()->get_student_names()[k]){
                     return true;
                 }
             }

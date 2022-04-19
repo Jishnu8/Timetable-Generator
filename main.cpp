@@ -140,17 +140,22 @@ void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
     curr_class->backtrack_restrictions_size = 0;
     curr_class->class_spacing = curr_class->calc_class_spacing();
     cout << "Class spacing now: " << curr_class->class_spacing << endl;
-    getchar();
+    //getchar();
     cout<<"2";
     prev_class->backtrack_restrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
     cout<<"3";
     timetable[prev_class->period_index].period_subject_index--;
+//    timetable[curr_class->period_index].period_subject_index--; naren's change
     cout<<"4";
     prev_class->period_index = -1;
     cout<<"5";
     prev_class->get_course_obj()->no_of_periods_assigned--;
     cout<<"6";
     // reset class spacing
+
+
+
+
 
 }
 
@@ -202,6 +207,7 @@ void put_in_timetable(int carray_index, int tt_index) {
     timetable[tt_index].period_subject_index++;
     //error in the following line
     timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = &class_array[carray_index];
+    timetable[tt_index].print_classes();
     class_array[carray_index].period_index = tt_index;
     (course_->periods_assigned)[course_->no_of_periods_assigned] = tt_index;
     //cout << "Period assigned: " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
@@ -264,7 +270,7 @@ void init() {
             class_index--;
             function7(best_index);
             cout << "Going to backtrack\n";
-            getchar();
+           // getchar();
             /*if (classIndex == classArray.length){
 		//function 6 start
 		output solution
@@ -340,7 +346,7 @@ bool is_overlapping(int period_index, int class_index) {
 }
 
 void function7(int best_index){
-    timetable[best_index].period_subject_index -= 1;
+
     cout << "Entered function 7" << endl;
     cout << "Best index: " << best_index << endl;
     int* temp = new int[++class_array[class_index].backtrack_restrictions_size];
@@ -354,12 +360,12 @@ void function7(int best_index){
     class_array[class_index].backtrack_restrictions = temp;
 
     class_array[class_index].period_index = -1;
-    timetable[best_index].period_subject_index -= 1;
+    timetable[best_index].period_subject_index --;
     cout << "Test1\n";
 
     class_array[class_index].get_course_obj()->no_of_periods_assigned--;
     cout << "function 7 done\n";
-    getchar();
+    //getchar();
 }
 
 void print_timetable(){

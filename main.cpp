@@ -48,8 +48,12 @@ int num_of_courses;
 int num_of_teachers;
 
 
-int num_periods = 42;
-int num_periods_per_day = 7;
+int const num_periods = 12;
+int const num_periods_per_day = 2;
+
+int clas::num_periods_per_day = 2;
+int clas::num_periods_per_week = 12;
+
 period* timetable = new period[num_periods];
 //clas* class_array = nullptr;
 vector<clas> class_array;
@@ -60,8 +64,8 @@ int previous_index;
 int periods_qty;
 course* course_ref = nullptr;
 int indices_skipped;
-int possibilities[7];
-int most_pref[7];
+int possibilities[num_periods_per_day];
+int most_pref[num_periods_per_day];
 int possibilities_index;
 int most_pref_index;
 int start_pos;
@@ -228,7 +232,7 @@ void init() {
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
             cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
-            indices_skipped = class_->class_spacing*7 - previous_index%7;
+            indices_skipped = class_->class_spacing*num_periods_per_day - previous_index%num_periods_per_day;
         } else {
             previous_index = 0;
             indices_skipped = 0;
@@ -236,7 +240,7 @@ void init() {
 
         possibilities_index = -1;
         start_pos = previous_index + indices_skipped;
-        find_possibilities_in_range(start_pos, start_pos + 7, class_index); // function 1
+        find_possibilities_in_range(start_pos, start_pos + num_periods_per_day, class_index); // function 1
         //find_possibilities_in_range(0, 41, class_index, class_->class_spacing);
         cout << "Possibilities found\n";
 
@@ -349,7 +353,7 @@ void function7(int best_index){
 
     cout << "Entered function 7" << endl;
     cout << "Best index: " << best_index << endl;
-    int* temp = new int[++class_array[class_index].backtrack_restrictions_size];
+    /*int* temp = new int[++class_array[class_index].backtrack_restrictions_size];
 
     cout << "Backtrack size: " << class_array[class_index].backtrack_restrictions_size << endl;
     for(int i = 0; i < class_array[class_index].backtrack_restrictions_size - 1; i++){
@@ -357,7 +361,10 @@ void function7(int best_index){
     }
     temp[class_array[class_index].backtrack_restrictions_size-1] = best_index;
     delete class_array[class_index].backtrack_restrictions;
-    class_array[class_index].backtrack_restrictions = temp;
+    class_array[class_index].backtrack_restrictions = temp;*/
+
+    class_array[class_index].backtrack_restrictions[class_array[class_index].backtrack_restrictions_size++] = best_index;
+
 
     class_array[class_index].period_index = -1;
     timetable[best_index].period_subject_index --;
@@ -378,6 +385,8 @@ void print_timetable(){
 
 
 int main(){
+    cout << clas::num_periods_per_day << " " << clas::num_periods_per_week << endl;
+    getchar();
     cout << "calculating size outside: " << sizeof(course1)/sizeof(course1[0]) << endl;
     construct_class_array();
     init();

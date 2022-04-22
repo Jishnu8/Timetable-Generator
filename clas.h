@@ -18,6 +18,9 @@ class clas{
     int calc_class_spacing();
     //~clas();
 
+    static int num_periods_per_day;
+    static int num_periods_per_week;
+
     teacher get_teacher_obj() const;
     course* get_course_obj() const;
 };

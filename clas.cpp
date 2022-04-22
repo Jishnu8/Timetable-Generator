@@ -11,7 +11,7 @@ clas::clas(teacher t, course* c): teacher_obj(t)
     //course_obj = new course(c->get_student_names(), c->get_subject_name(), c->get_no_of_periods());
     period_index = -1;
     cout << "Number of periods per day: " << num_periods_per_day << endl;
-    class_spacing = ceil(num_periods_per_day/c->get_no_of_periods());
+    class_spacing = ceil(((num_periods_per_week/num_periods_per_day) + 1)/c->get_no_of_periods());
     backtrack_restrictions = new int[num_periods_per_week];
     backtrack_restrictions_size = 0;
 }

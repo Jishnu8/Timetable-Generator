@@ -49,10 +49,10 @@ int num_of_teachers;
 
 
 int const num_periods = 12;
-int const num_periods_per_day = 2;
+int const num_periods_per_day2 = 2;
 
-int clas::num_periods_per_day = 2;
-int clas::num_periods_per_week = 12;
+int clas::num_periods_per_day = num_periods_per_day2;
+int clas::num_periods_per_week = num_periods;
 
 period* timetable = new period[num_periods];
 //clas* class_array = nullptr;
@@ -64,8 +64,8 @@ int previous_index;
 int periods_qty;
 course* course_ref = nullptr;
 int indices_skipped;
-int possibilities[num_periods_per_day];
-int most_pref[num_periods_per_day];
+int possibilities[num_periods_per_day2];
+int most_pref[num_periods_per_day2];
 int possibilities_index;
 int most_pref_index;
 int start_pos;
@@ -232,7 +232,7 @@ void init() {
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
             cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
-            indices_skipped = class_->class_spacing*num_periods_per_day - previous_index%num_periods_per_day;
+            indices_skipped = class_->class_spacing*num_periods_per_day2 - previous_index%num_periods_per_day2;
         } else {
             previous_index = 0;
             indices_skipped = 0;
@@ -240,7 +240,7 @@ void init() {
 
         possibilities_index = -1;
         start_pos = previous_index + indices_skipped;
-        find_possibilities_in_range(start_pos, start_pos + num_periods_per_day, class_index); // function 1
+        find_possibilities_in_range(start_pos, start_pos + num_periods_per_day2, class_index); // function 1
         //find_possibilities_in_range(0, 41, class_index, class_->class_spacing);
         cout << "Possibilities found\n";
 

@@ -17,12 +17,12 @@ teacher::teacher(string nm, course** ca, int size1, int* tr, int tr_size, int nu
     for (int i = 0; i < size1; i++){
         course_array[i] = ca[i];
     }
-    cout << "Teacher restrictions: ";
-    for (int i = 0; i < tr_size; i++){
-        teacher_restrictions[i] = tr[i];
-        cout << teacher_restrictions[i] << " ";
-    }
-    cout << endl;
+    //cout << "Teacher restrictions: ";
+//    for (int i = 0; i < tr_size; i++){
+//        teacher_restrictions[i] = tr[i];
+//        cout << teacher_restrictions[i] << " ";
+//    }
+//    cout << endl;
 
 }
 

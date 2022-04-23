@@ -12,8 +12,15 @@
 #include "period.h"
 #include "period.cpp"
 
+//Program running on Linux machine in CompLab, but not working on Jis Windows laptop.
+//This is very strange and even troubling. Disturbing thoughts at night haunt me.
+//Will the future of computers change? Unlike and yet a possibility.
+//Help :(
+//Update. A disturbing truth revealed. The program on Naren's horrible, archaic windows laptop/
+//What has my life come to?
 
 using namespace std;
+int no_of_solutions_found = 0;
 
 
 
@@ -48,8 +55,8 @@ int num_of_courses;
 int num_of_teachers;
 
 
-int const num_periods = 12;
-int const num_periods_per_day2 = 2;
+int const num_periods = 42;
+int const num_periods_per_day2 = 7;
 
 int clas::num_periods_per_day = num_periods_per_day2;
 int clas::num_periods_per_week = num_periods;
@@ -100,7 +107,7 @@ void construct_class_array() {
     int num_of_classes = get_num_of_classes();
     int index = 0;
 
-    cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
+    //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
         teacher_courses = teachers[i].get_course_array();
@@ -112,27 +119,27 @@ void construct_class_array() {
         }
     }
 
-    cout << "Class array constructed!\n";
+    //cout << "Class array constructed!\n";
 
 }
 
 void find_possibilities_in_range(int a, int b, int index) {
     bool full, overlapping, t_restricted, b_restricted, spaced;
-    cout << "Finding possibilities between " << a << " and " << b << endl;
+    //cout << "Finding possibilities between " << a << " and " << b << endl;
     for(int i = a; i < b; i++) {
         // check conditions for i
-        cout << "Checking period " << i << endl;
+        //cout << "Checking period " << i << endl;
         full = is_full(i);
-        cout << "Full: " << full << endl;
+        //cout << "Full: " << full << endl;
         overlapping = is_overlapping(i, index);
-        cout << "Overlapping: " << overlapping << endl;
+        //cout << "Overlapping: " << overlapping << endl;
         b_restricted = is_restricted(i, index, class_array[index].backtrack_restrictions, class_array[index].backtrack_restrictions_size);
-        cout << "Is in backtrack restrictions: " << b_restricted << endl;
+        //cout << "Is in backtrack restrictions: " << b_restricted << endl;
         t_restricted = is_restricted(i, index, class_array[index].get_teacher_obj().get_teacher_restrictions(), class_array[index].get_teacher_obj().teacher_restrictions_size);
-        cout << "Is in teacher restrictions: " << t_restricted << endl;
+        //cout << "Is in teacher restrictions: " << t_restricted << endl;
         //spaced = is_within_class_spacing(i, index, spacing);
         if(!full && !overlapping && !t_restricted && !b_restricted) {
-            cout << i << " is a possibility\n";
+            //cout << i << " is a possibility\n";
             possibilities[++possibilities_index] = i;
         }
     }
@@ -140,21 +147,21 @@ void find_possibilities_in_range(int a, int b, int index) {
 
 
 void backtrack_to_prev_class(clas* curr_class, clas* prev_class) {
-    cout<<"1";
+    //cout<<"1";
     curr_class->backtrack_restrictions_size = 0;
     curr_class->class_spacing = curr_class->calc_class_spacing();
-    cout << "Class spacing now: " << curr_class->class_spacing << endl;
+    //cout << "Class spacing now: " << curr_class->class_spacing << endl;
     //getchar();
-    cout<<"2";
+    //cout<<"2";
     prev_class->backtrack_restrictions[prev_class->backtrack_restrictions_size++] = prev_class->period_index;
-    cout<<"3";
+    //cout<<"3";
     timetable[prev_class->period_index].period_subject_index--;
 //    timetable[curr_class->period_index].period_subject_index--; naren's change
-    cout<<"4";
+    //cout<<"4";
     prev_class->period_index = -1;
-    cout<<"5";
+    //cout<<"5";
     prev_class->get_course_obj()->no_of_periods_assigned--;
-    cout<<"6";
+    //cout<<"6";
     // reset class spacing
 
 
@@ -174,14 +181,14 @@ bool comp_wrt_cong(int a, int b) {
 
 void sort_arr(int* arr, int len, char metric) {
     if(metric == 'p') {
-        cout << "Sorting wrt preference\n";
+        //cout << "Sorting wrt preference\n";
         sort(arr, arr + len, comp_wrt_pref);
-        cout << "Sorted wrt preference\n";
+        //cout << "Sorted wrt preference\n";
     } else {
         if(metric == 'c') {
-            cout << "Sorting wrt congestion\n";
+            //cout << "Sorting wrt congestion\n";
             sort(arr, arr + len, comp_wrt_cong);
-            cout << "Sorted wrt congestion\n";
+            //cout << "Sorted wrt congestion\n";
         }
     }
 }
@@ -191,12 +198,12 @@ void fill_most_pref() {
     most_pref[0] = possibilities[possibilities_index];
     most_pref_index = 1;
     float highest_score = timetable[most_pref[0]].get_preferability_score();
-    cout << "Possibilities index: " << possibilities_index << endl;
+    //cout << "Possibilities index: " << possibilities_index << endl;
     for(int i = possibilities_index-1; i >= 0; i--) {
         if(timetable[possibilities[i]].get_preferability_score() < highest_score) {
             break;
         }
-        cout << "Filling most_pref\n";
+        //cout << "Filling most_pref\n";
         most_pref[most_pref_index++] = possibilities[i];
     }
 
@@ -211,12 +218,13 @@ void put_in_timetable(int carray_index, int tt_index) {
     timetable[tt_index].period_subject_index++;
     //error in the following line
     timetable[tt_index].period_subject_list[timetable[tt_index].period_subject_index] = &class_array[carray_index];
-    timetable[tt_index].print_classes();
+    //timetable[tt_index].print_classes(); //vibhu is guilty of this.
+
     class_array[carray_index].period_index = tt_index;
     (course_->periods_assigned)[course_->no_of_periods_assigned] = tt_index;
     //cout << "Period assigned: " << (course_->periods_assigned)[course_->no_of_periods_assigned] << endl;
     (course_->no_of_periods_assigned)++;
-    cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
+    //cout << "Putting " << course_->get_subject_name() << " in period number " << tt_index << endl;
 }
 
 void init() {
@@ -224,14 +232,14 @@ void init() {
     while(1) {
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
-        cout << "Course: " << course_ref->get_subject_name() << endl;
+        //cout << "Course: " << course_ref->get_subject_name() << endl;
         //getchar();
         periods_qty = course_ref->no_of_periods_assigned;
-        cout << "Number of periods already assigned: " << periods_qty << endl;
+        //cout << "Number of periods already assigned: " << periods_qty << endl;
         //getchar();
         if(periods_qty > 0) {
             previous_index = course_ref->periods_assigned[periods_qty-1];
-            cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
+            //cout << "Periods_qty = " << periods_qty << ", previous index = " << previous_index << endl;
             indices_skipped = class_->class_spacing*num_periods_per_day2 - previous_index%num_periods_per_day2;
         } else {
             previous_index = 0;
@@ -242,38 +250,41 @@ void init() {
         start_pos = previous_index + indices_skipped;
         find_possibilities_in_range(start_pos, start_pos + num_periods_per_day2, class_index); // function 1
         //find_possibilities_in_range(0, 41, class_index, class_->class_spacing);
-        cout << "Possibilities found\n";
+        //cout << "Possibilities found\n";
 
         if(possibilities_index == -1) {
             if(--(class_->class_spacing) == 0) { // if backtracking's necessary
-                cout << "Class spacing is zero\n";
+                //cout << "Class spacing is zero\n";
                 if(class_index == 0) { // if all possibilities exhausted
                     cout << "All possibilities exhausted\n";
                     return;
                 }
-                cout << "Backtracking\n";
+                //cout << "Backtracking\n";
                 backtrack_to_prev_class(class_, &class_array[class_index-1]); // function 2
-                cout << "Backtracking successful\n";
+                //cout << "Backtracking successful\n";
                 class_index--;
             }
             continue;
         }
 
 
-
         sort_arr(possibilities, possibilities_index+1, 'p'); // function 3
         fill_most_pref(); // function 4 (not good)
         sort_arr(most_pref, most_pref_index, 'c');
         best_index = most_pref[0];
-        put_in_timetable(class_index, best_index);
-        cout << "End of iteration\n";
-        class_index++;
 
+        put_in_timetable(class_index, best_index); //problem found
+
+        //cout << "End of iteration\n";
+        class_index++;
+        //cout << class_index << endl;
         if(class_index >= class_array.size()) {
-            print_timetable();
+            cout << "No of solutions: " << ++no_of_solutions_found<<endl;
+            //print_timetable();
+            getchar();
             class_index--;
             function7(best_index);
-            cout << "Going to backtrack\n";
+            //cout << "Going to backtrack\n";
            // getchar();
             /*if (classIndex == classArray.length){
 		//function 6 start
@@ -288,7 +299,6 @@ void init() {
 		course_array[classarray[classIndex].courseIndex].noOfPeriodsAssigned -= 1
 		//function 7 end
 	}*/
-
         }
 
     }
@@ -297,7 +307,7 @@ void init() {
 bool is_restricted(int period_index, int class_index, int* array_pointer, int r_size) {
     if(array_pointer != nullptr) {
         for (int i = 0; i < r_size; i++) {
-            cout << "Class in restrictions: " << array_pointer[i] << endl;
+            //cout << "Class in restrictions: " << array_pointer[i] << endl;
             if (period_index == array_pointer[i]) {
                 return true;
             }
@@ -326,11 +336,11 @@ bool is_full(int period_index) {
 
 bool is_overlapping(int period_index, int class_index) {
     clas** period_subject_list = timetable[period_index].period_subject_list;
-        cout << "Made it!" << endl;
+        //cout << "Made it!" << endl;
 
     for (int i = 0; i <= timetable[period_index].period_subject_index; i++) {
 
-        cout << period_subject_list[i]->get_teacher_obj().get_teacher_name() << endl;
+        //cout << period_subject_list[i]->get_teacher_obj().get_teacher_name() << endl;
         if (period_subject_list[i]->get_teacher_obj().get_teacher_name() == class_array[class_index].get_teacher_obj().get_teacher_name()) {
             return true;
         }
@@ -351,8 +361,8 @@ bool is_overlapping(int period_index, int class_index) {
 
 void function7(int best_index){
 
-    cout << "Entered function 7" << endl;
-    cout << "Best index: " << best_index << endl;
+    //cout << "Entered function 7" << endl;
+    //cout << "Best index: " << best_index << endl;
     /*int* temp = new int[++class_array[class_index].backtrack_restrictions_size];
 
     cout << "Backtrack size: " << class_array[class_index].backtrack_restrictions_size << endl;
@@ -368,10 +378,10 @@ void function7(int best_index){
 
     class_array[class_index].period_index = -1;
     timetable[best_index].period_subject_index --;
-    cout << "Test1\n";
+    //cout << "Test1\n";
 
     class_array[class_index].get_course_obj()->no_of_periods_assigned--;
-    cout << "function 7 done\n";
+    //cout << "function 7 done\n";
     //getchar();
 }
 
@@ -385,9 +395,6 @@ void print_timetable(){
 
 
 int main(){
-    cout << clas::num_periods_per_day << " " << clas::num_periods_per_week << endl;
-    getchar();
-    cout << "calculating size outside: " << sizeof(course1)/sizeof(course1[0]) << endl;
     construct_class_array();
     init();
     cout << "buffalo";

@@ -9,6 +9,7 @@ class course{
     string* student_names;
     string subject_name;
     int no_of_periods;
+    int no_of_students;
     friend class teacher;
     //int* location_assigned;
 
@@ -17,12 +18,13 @@ class course{
     int no_of_periods_assigned;
 
     course();
-    course(string*, string, int);
-    ~course();
+    course(string*, string, int, int);
+    //~course();
 
     string* get_student_names() const;
     string get_subject_name() const;
     int get_no_of_periods() const;
+    int get_no_of_students() const;
 };
 
 #endif //COURSE_H

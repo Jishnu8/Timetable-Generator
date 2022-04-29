@@ -9,8 +9,12 @@ class period{
     int preferabilty_score;
 
     public:
-    clas* period_subject_list;
+    static int max_class;
+    void print_classes();
+
+    clas** period_subject_list;
     int period_subject_index;
+    period();
     period(int);
     ~period();
 

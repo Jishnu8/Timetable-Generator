@@ -18,6 +18,8 @@
 //Help :(
 //Update. A disturbing truth revealed. The program on Naren's horrible, archaic windows laptop/
 //What has my life come to?
+//Life has changed. Program failed to run on Vibhu's laptop. Halleluah!
+//Conclusion: THe shittier the laptop, the better it is for the program :)
 
 using namespace std;
 int no_of_solutions_found = 0;
@@ -25,6 +27,10 @@ int no_of_solutions_found = 0;
 
 
 //global variables
+string student_list[100][15] = {"Liam", "Noah", "Oliver", "Elijah", "William", "James", "Benjamin", "Lucas", "Henry", "Alexander", "Mason", "Michael", "Ethan", "Daniel", "Jacob", "Logan", "Jackson", "Levi", "Sebastian", "Mateo", "Jack", "Owen", "Theodore", "Aiden", "Samuel", "Joseph", "John", "David", "Wyatt", "Matthew", "Luke", "Asher", "Carter", "Narendran", "Grayson", "Leo", "Jayden", "Gabriel", "Isaac", "Lincoln", "Anthony", "Hudson", "Dylan", "Ezra", "Thomas", "Charles", "Christopher", "Jaxon", "Maverick", "Josiah", "Isaiah", "Andrew", "Elias", "Joshua", "Nathan", "Caleb", "Ryan", "Adrian", "Miles", "Eli", "Nolan", "Christian", "Aaron", "Cameron", "Ezekiel", "Colton", "Luca", "Landon", "Hunter", "Jonathan", "Santiago", "Axel", "Easton", "Cooper", "Jeremiah", "Angel", "Roman", "Connor", "Jameson", "Robert", "Greyson", "Jordan", "Ian", "Carson", "Jaxson", "Leonardo", "Nicholas", "Dominic", "Austin", "Everett", "Brooks", "Xavier", "Kai", "Jose", "Parker", "Adam", "Jace", "Wesley", "Kayden", "Silas"};
+string teacher_list[50][15] = {"Aaditya", "Aarav", "Ajay", "Akash", "Akhil", "Akshay", "Anand", "Anil", "Ari", "Arian", "Arjun", "Armaan", "Arun", "Aum", "Avi", "Ayaan", "Bodhi", "Daksh", "Dev", "Eshaan", "Ishan", "Jahan", "Jaiden", "Jay", "Jiyan", "Kabir", "Kahan", "Kailash", "Kaiyen", "Kalpen", "Karam", "Karthik", "Kavish", "Kiaan", "Krish", "Kriyan", "Laksh", "Manav", "Milan", "Mivan", "Mohan", "Moksh", "Nayan", "Neeraj", "Nikhil", "Nirmay", "Nishan", "Nitin", "Niyam", "Ohm"};
+string course_list[90][15] = {"Androcentrism", "Feminine psychology", "Feminism", "Feminity", "Feminist theory", "Gender dysphoria", "Gender history", "Gender identity", "Gender role", "Gender studies/Gender theory", "Genderqueer", "Gynocentrism", "Heterosexism", "Human sexual behavior", "Human sexuality (outline)", "Intersex", "Masculinity", "Masculism", "Men in feminism", "Men's liberation movement", "Men's movement", "Men's rights movement", "Men's studies", "Misandry", "Misogyny", "Postfeminism", "Postgenderism", "Queer studies/Queer theory", "Sex and gender distinction", "Sex differences in psychology", "Sex education", "Sexism", "Sexology", "Third gender", "Transgender", "Women's rights", "Women's studies", "Canon law", "Church history", "Field ministry", "Pastoral counseling", "Pastoral theology", "Religious education techniques", "Homiletics", "Liturgy", "Sacred music", "Missiology", "Hermeneutics", "Scriptural study and languages", "Biblical Hebrew", "Biblical studies/Sacred scripture", "Vedic Study", "New Testament Greek", "Latin", "Old Church Slavonic", "Theology (outline)", "Dogmatic theology", "Ecclesiology", "Sacramental theology", "Systematic theology", "Christian ethics", "Hindu ethics", "Moral theology", "Historical theology", "Acquired taste", "Aftertaste", "Appetite", "Artisanal food", "Cooking", "Cuisine", "Culinary arts", "Culinary tourism", "Delicacy", "Diet", "Flavor", "Food choice", "Food pairing", "Food photography", "Food preparation", "Food presentation", "Food safety", "Food security", "Food studies", "Gastronomy", "Gourmet", "Palatability", "Specialty foods", "Traditional food", "Blah", "Closet"};
+
 
 string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
                             {"Shubham", "Auro", "Roshini", "Vibhu"},

@@ -11,6 +11,9 @@
 #include "clas.cpp"
 #include "period.h"
 #include "period.cpp"
+#include <fstream>
+#include <sstream>
+#include "libxl.h"
 
 //Program running on Linux machine in CompLab, but not working on Jis Windows laptop.
 //This is very strange and even troubling. Disturbing thoughts at night haunt me.
@@ -20,13 +23,42 @@
 //What has my life come to?
 
 using namespace std;
+
 int no_of_solutions_found = 0;
+
+vector<teacher> teacher_array;
+vector<course> course_array;
+vector<clas> class_array;
+
+void csv_parser(){
+    Book* book = xlCreateXMLBook();
+    vector<string> student_names;
+    if(book->load(L"template.xlsx")){
+        for(int i = 0; i < book->sheetCount(); i++){
+            Sheet* sheet = book->getSheet(i);
+            if(sheet){
+                int column = 2;
+                int row = 12;
+                while(CellType(row,column).cellType != CELLTYPE_EMPTY){
+                    while(CellType(row, column).cellType != CELLTYPE_EMPTY){
+                        student_names.push_back(readStr(row, column));
+                    }
+                    string subject = readStr(10, column);
+                    int no_of_periods = readNum(11, column);
+                    course_array.push_back(course(student_names, subject, no_of_periods, student_names.size()));
+                    column++;
+                    row = 12;
+                }
+            }
+        }
+    }
+}
 
 
 
 //global variables
 
-string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
+/*string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
                             {"Shubham", "Auro", "Roshini", "Vibhu"},
                             {"Narendran", "Auro", "Divyanshu"},
                             {"Jishnu", "Roshini", "Harshini"},
@@ -49,7 +81,7 @@ int r_size = sizeof(restrictions1)/sizeof(restrictions1[0]);
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
 teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size, 2),
                         teacher(teacher_names[1],course2,2,restrictions1,r_size, 2),
-                        teacher(teacher_names[2],course3,1,restrictions1,r_size, 1)};
+                        teacher(teacher_names[2],course3,1,restrictions1,r_size, 1)}; */
 
 int num_of_courses;
 int num_of_teachers;
@@ -63,7 +95,7 @@ int clas::num_periods_per_week = num_periods;
 
 period* timetable = new period[num_periods];
 //clas* class_array = nullptr;
-vector<clas> class_array;
+
 
 int class_index = 0;
 int capacity = 10;
@@ -85,11 +117,12 @@ void function7(int best_index);
 void print_timetable();
 void is_within_class_spacing(int period_index, int class_index, int spacing);
 
+
 int get_num_of_classes() {
 
     int num_of_classes = 0;
 
-    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
+    for(int i = 0; i < sizeof(course_array)/sizeof(courses[0]); i++) {
 
         num_of_classes += courses[i].get_no_of_periods();
 
@@ -110,7 +143,7 @@ void construct_class_array() {
     //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
-        teacher_courses = teachers[i].get_course_array();
+        teacher_courses = teacher_array[i].get_course_array();
         //cout<<"Number of courses with teacher: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
         for(int j = 0; j < teachers[i].get_num_courses(); j++) {
             for(int k = 0; k < teacher_courses[j]->get_no_of_periods(); k++) {
@@ -395,10 +428,11 @@ void print_timetable(){
 
 
 int main(){
-    construct_class_array();
+    /*construct_class_array();
     init();
     cout << "buffalo";
-    getchar();
+    getchar();*/
+    csv_parser();
     return 0;
 }
 

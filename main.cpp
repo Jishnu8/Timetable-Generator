@@ -21,7 +21,7 @@
 //Help :(
 //Update. A disturbing truth revealed. The program on Naren's horrible, archaic windows laptop/
 //What has my life come to?
-
+using namespace libxl;
 using namespace std;
 
 int no_of_solutions_found = 0;
@@ -32,20 +32,21 @@ vector<clas> class_array;
 
 void csv_parser(){
     Book* book = xlCreateXMLBook();
+    Sheet* sheet = NULL;
     vector<string> student_names;
-    if(book->load(L"template.xlsx")){
+    if(book->load("template.xlsx")){
         for(int i = 0; i < book->sheetCount(); i++){
-            Sheet* sheet = book->getSheet(i);
+            sheet = book->getSheet(i);
             if(sheet){
                 int column = 2;
                 int row = 12;
-                while(CellType(row,column).cellType != CELLTYPE_EMPTY){
-                    while(CellType(row, column).cellType != CELLTYPE_EMPTY){
-                        student_names.push_back(readStr(row, column));
+                while(sheet->cellType(row,column) != CELLTYPE_EMPTY){
+                    while(sheet->cellType(row, column) != CELLTYPE_EMPTY){
+                        student_names.push_back(sheet->readStr(row, column));
                     }
-                    string subject = readStr(10, column);
-                    int no_of_periods = readNum(11, column);
-                    course_array.push_back(course(student_names, subject, no_of_periods, student_names.size()));
+                    string subject = sheet->readStr(10, column);
+                    int no_of_periods = sheet->readNum(11, column);
+                    course_array.push_back(course(&student_names, subject, no_of_periods, student_names.size()));
                     column++;
                     row = 12;
                 }

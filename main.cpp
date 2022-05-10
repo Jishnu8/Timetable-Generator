@@ -11,6 +11,8 @@
 #include "clas.cpp"
 #include "period.h"
 #include "period.cpp"
+#include "data_gen.h"
+#include "data_gen.cpp"
 
 //Program running on Linux machine in CompLab, but not working on Jis Windows laptop.
 //This is very strange and even troubling. Disturbing thoughts at night haunt me.
@@ -51,9 +53,11 @@ int restrictions1[1] = {1};
 int r_size = sizeof(restrictions1)/sizeof(restrictions1[0]);
 
 string teacher_names[3] = {"Vijayalakshmi","Avani","Shanti"};
-teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size, 2),
-                        teacher(teacher_names[1],course2,2,restrictions1,r_size, 2),
-                        teacher(teacher_names[2],course3,1,restrictions1,r_size, 1)};
+//teacher teachers[3] = {teacher(teacher_names[0],course1,2,restrictions1,r_size, 2),
+//                        teacher(teacher_names[1],course2,2,restrictions1,r_size, 2),
+//                        teacher(teacher_names[2],course3,1,restrictions1,r_size, 1)};
+
+teacher* teachers;
 
 int num_of_courses;
 int num_of_teachers;
@@ -399,9 +403,8 @@ void print_timetable(){
 
 
 int main(){
-    for(int i = 0; i < 20; i++) {
-       cout << 1 + (std::rand() % 6) << endl;
-    }
+    int teachers2 = return_teacher_obj();
+    cout << "hi";
 
     construct_class_array();
     init();

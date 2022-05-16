@@ -26,27 +26,32 @@ using namespace std;
 
 int no_of_solutions_found = 0;
 
-vector<teacher> teacher_array;
-vector<course> course_array;
+vector<teacher> teachers;
+vector<course> courses;
 vector<clas> class_array;
 
 void csv_parser(){
     Book* book = xlCreateXMLBook();
     Sheet* sheet = NULL;
-    vector<string> student_names;
+    vector<string> student_names_vector;
+    string* student_names;
+    int index = 0;
     if(book->load("template.xlsx")){
-        for(int i = 0; i < book->sheetCount(); i++){
+        for(int i = 0; i <= book->sheetCount(); i++){
             sheet = book->getSheet(i);
             if(sheet){
                 int column = 2;
-                int row = 12;
+                int row = 13;
                 while(sheet->cellType(row,column) != CELLTYPE_EMPTY){
                     while(sheet->cellType(row, column) != CELLTYPE_EMPTY){
-                        student_names.push_back(sheet->readStr(row, column));
+                        student_names_vector.push_back(sheet->readStr(row, column));
                     }
                     string subject = sheet->readStr(10, column);
                     int no_of_periods = sheet->readNum(11, column);
-                    course_array.push_back(course(&student_names, subject, no_of_periods, student_names.size()));
+                    delete[] student_names;
+                    student_names = new string[student_names_vector.size()];
+                    copy(student_names_vector.begin(), student_names_vector.end(), student_names);
+                    courses.push_back(course(student_names, subject, no_of_periods, student_names_vector.size()));
                     column++;
                     row = 12;
                 }
@@ -123,7 +128,7 @@ int get_num_of_classes() {
 
     int num_of_classes = 0;
 
-    for(int i = 0; i < sizeof(course_array)/sizeof(courses[0]); i++) {
+    for(int i = 0; i < sizeof(courses)/sizeof(courses[0]); i++) {
 
         num_of_classes += courses[i].get_no_of_periods();
 
@@ -144,7 +149,7 @@ void construct_class_array() {
     //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
     for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
-        teacher_courses = teacher_array[i].get_course_array();
+        teacher_courses = teachers[i].get_course_array();
         //cout<<"Number of courses with teacher: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
         for(int j = 0; j < teachers[i].get_num_courses(); j++) {
             for(int k = 0; k < teacher_courses[j]->get_no_of_periods(); k++) {
@@ -433,7 +438,9 @@ int main(){
     init();
     cout << "buffalo";
     getchar();*/
+cout << "Hello" << endl;
     csv_parser();
+    cout << "Hello" << endl;
     return 0;
 }
 

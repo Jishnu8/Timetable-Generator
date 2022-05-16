@@ -1,4 +1,11 @@
-#include "data_gen.h""
+#include "data_gen.h"
+#include "teacher.h"
+#include "teacher.cpp"
+
+
+// The golden rule of C++
+// You must have an endl at the end of the last cout statement of a function
+
 
 using namespace std;
 
@@ -162,8 +169,8 @@ teacher* return_teacher_obj(){
     assign_restrictions(teacher_list);
     print2(teacher_list);
     teacher* ab = create_teacher_obj(teacher_list);
-    cout << "Here" <<endl;
-    cout << "f" << endl;
+    cout << "Test1" << endl;
+    cout << "Test2" << endl;
     //cout << "djfn" << endl;
     return ab;
 }

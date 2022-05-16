@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
-
-int return_teacher_obj();
+#include "teacher.h"
+#include "course.h"
 
 #endif

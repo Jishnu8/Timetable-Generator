@@ -11,8 +11,8 @@
 #include "clas.cpp"
 #include "period.h"
 #include "period.cpp"
-#include "data_gen.h"
-#include "data_gen.cpp"
+//#include "data_gen.h"
+//#include "data_gen.cpp"
 
 //Program running on Linux machine in CompLab, but not working on Jis Windows laptop.
 //This is very strange and even troubling. Disturbing thoughts at night haunt me.
@@ -23,6 +23,10 @@
 //Life has changed. Program failed to run on Vibhu's laptop. Halleluah!
 //Conclusion: THe shittier the laptop, the better it is for the program :)
 
+//I don't know what to write. This is a serious matter. Is this life? Is this what it has come down to?
+//Labyrinthing the inconsistencies of C++, I torture myself. We are good guys :( Aren't we?
+//NNNNNNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
 using namespace std;
 int no_of_solutions_found = 0;
 
@@ -31,6 +35,172 @@ int no_of_solutions_found = 0;
 //global variables
 
 //int period_list[90] =
+
+using namespace std;
+
+const int no_of_courses = 100;
+const int no_of_students = 100;
+const int no_of_teachers = 50;
+string student_list[no_of_students] = {"Liam", "Noah", "Oliver", "Elijah", "William", "James", "Benjamin", "Lucas", "Henry", "Alexander", "Mason", "Michael", "Ethan", "Daniel", "Jacob", "Logan", "Jackson", "Levi", "Sebastian", "Mateo", "Jack", "Owen", "Theodore", "Aiden", "Samuel", "Joseph", "John", "David", "Wyatt", "Matthew", "Luke", "Asher", "Carter", "Narendran", "Grayson", "Leo", "Jayden", "Gabriel", "Isaac", "Lincoln", "Anthony", "Hudson", "Dylan", "Ezra", "Thomas", "Charles", "Christopher", "Jaxon", "Maverick", "Josiah", "Isaiah", "Andrew", "Elias", "Joshua", "Nathan", "Caleb", "Ryan", "Adrian", "Miles", "Eli", "Nolan", "Christian", "Aaron", "Cameron", "Ezekiel", "Colton", "Luca", "Landon", "Hunter", "Jonathan", "Santiago", "Axel", "Easton", "Cooper", "Jeremiah", "Angel", "Roman", "Connor", "Jameson", "Robert", "Greyson", "Jordan", "Ian", "Carson", "Jaxson", "Leonardo", "Nicholas", "Dominic", "Austin", "Everett", "Brooks", "Xavier", "Kai", "Jose", "Parker", "Adam", "Jace", "Wesley", "Kayden", "Silas"};
+string teacher_list[no_of_teachers] = {"Aaditya", "Aarav", "Ajay", "Akash", "Akhil", "Akshay", "Anand", "Anil", "Ari", "Arian", "Arjun", "Armaan", "Arun", "Aum", "Avi", "Ayaan", "Bodhi", "Daksh", "Dev", "Eshaan", "Ishan", "Jahan", "Jaiden", "Jay", "Jiyan", "Kabir", "Kahan", "Kailash", "Kaiyen", "Kalpen", "Karam", "Karthik", "Kavish", "Kiaan", "Krish", "Kriyan", "Laksh", "Manav", "Milan", "Mivan", "Mohan", "Moksh", "Nayan", "Neeraj", "Nikhil", "Nirmay", "Nishan", "Nitin", "Niyam", "Ohm"};
+string list_of_courses[no_of_courses] = {"Androcentrism", "Feminine psychology", "Feminism", "Feminity", "Feminist theory", "Gender dysphoria", "Gender history", "Gender identity", "Gender role", "Gender studies/Gender theory", "Genderqueer", "Gynocentrism", "Heterosexism", "Human sexual behavior", "Human sexuality (outline)", "Intersex", "Masculinity", "Masculism", "Men in feminism", "Men's liberation movement", "Men's movement", "Men's rights movement", "Men's studies", "Misandry", "Misogyny", "Postfeminism", "Postgenderism", "Queer studies/Queer theory", "Sex and gender distinction", "Sex differences in psychology", "Sex education", "Sexism", "Sexology", "Third gender", "Transgender", "Women's rights", "Women's studies", "Canon law", "Church history", "Field ministry", "Pastoral counseling", "Pastoral theology", "Religious education techniques", "Homiletics", "Liturgy", "Sacred music", "Missiology", "Hermeneutics", "Scriptural study and languages", "Biblical Hebrew", "Biblical studies/Sacred scripture", "Vedic Study", "New Testament Greek", "Latin", "Old Church Slavonic", "Theology (outline)", "Dogmatic theology", "Ecclesiology", "Sacramental theology", "Systematic theology", "Christian ethics", "Hindu ethics", "Moral theology", "Historical theology", "Acquired taste", "Aftertaste", "Appetite", "Artisanal food", "Cooking", "Cuisine", "Culinary arts", "Culinary tourism", "Delicacy", "Diet", "Flavor", "Food choice", "Food pairing", "Food photography", "Food preparation", "Food presentation", "Food safety", "Food security", "Food studies", "Gastronomy", "Gourmet", "Palatability", "Specialty foods", "Traditional food", "Blah", "Closet", "Maths", "Physics", "Chemistry", "Biology", "Geology", "French", "English", "CS", "German", "Spanish"};
+
+struct Course{
+    string course_name;
+    int no_of_periods;
+    string* student_names;
+    int no_of_students;
+};
+
+struct Teacher{
+    string teacher_name;
+    int no_of_courses;
+    Course* courses;
+    int* teacher_restrictions;
+    int tr_size;
+};
+
+int get_rand(int a,int b){
+    return a + (std::rand() % b);
+}
+
+void assign_course_names(Course *c){
+    for (int i=0; i < no_of_courses; i++){
+        c[i].course_name = list_of_courses[i];
+    }
+}
+
+void assign_periods(Course* c){
+    for (int i=0; i < no_of_courses; i++){
+        c[i].no_of_periods = get_rand(1,6);
+    }
+}
+
+void assign_courses(Teacher* t, Course* c){
+    int size1 = 2;
+    int k = 0;
+    bool is_random = true;
+    for (int i = 0; i < no_of_teachers; i++){
+        t[i].teacher_name = teacher_list[i];
+        if (size1 == 2 || !is_random ){
+            size1 = get_rand(1,3);
+            is_random = true;
+        }
+        else if (size1 == 1 && is_random){
+            size1 = 3;
+        }
+        else if (size1 == 3 && is_random){
+            size1 = 1;
+        }
+
+        t[i].no_of_courses = size1;
+        t[i].courses = new Course[size1];
+        for (int j = 0; j < size1; j++){
+            t[i].courses[j] = c[k + j];
+        }
+        k += size1;
+    }
+}
+
+void assign_restrictions(Teacher *t){
+    int a;
+    for (int i = 0; i < no_of_teachers; i++){
+        t[i].tr_size = get_rand(1,10);
+        t[i].teacher_restrictions = new int[t[i].tr_size];
+        for (int j = 0; j < t[i].tr_size; j++){
+            a = get_rand(1,42);
+            for (int k = 0; k < j; k++){
+                if (t[i].teacher_restrictions[k] == a){
+                    a = get_rand(1,42);
+                    k = 0;
+                }
+            }
+            t[i].teacher_restrictions[j] = a;
+        }
+    }
+}
+
+void assign_students(Course* c){
+    int j = 0;
+    for (int i = 0; i < no_of_courses; i++){
+        int size1 = get_rand(1,8);
+        if (j + size1 >= no_of_students){
+            size1 = no_of_students - 1 - j;
+        }
+        c[i].no_of_students = size1;
+        c[i].student_names = new string[size1];
+        for (int k = j; k < j + size1; k++){
+            c[i].student_names[k - j] = student_list[k];
+        }
+
+        j += size1;
+        if (j == no_of_students - 1){
+            j = 0;
+        }
+    }
+}
+
+void print(Course c){
+    cout << "Course: " << c.course_name << endl;
+    cout << "Periods: " << c.no_of_periods << endl;
+    cout << "Students: ";
+    for (int j = 0; j < c.no_of_students; j++){
+        cout << c.student_names[j] << ", ";
+    }
+    cout << endl;
+}
+
+void print2(Teacher *t){
+    for (int k = 0; k < no_of_teachers; k++){
+        cout << "Teacher: " << t[k].teacher_name << endl;
+        for (int i = 0; i < t[k].no_of_courses; i++){
+            print(t[k].courses[i]);
+        }
+        //cout << endl;
+        cout << "Restrictions: ";
+        for (int j = 0; j < t[k].tr_size; j++){
+            cout << t[k].teacher_restrictions[j] << ", ";
+        }
+        cout << endl << endl;
+    }
+}
+
+
+teacher* create_teacher_obj(Teacher* t){
+    cout << "blah";
+    cout << "1" << endl;
+    teacher* teacher_objs = new teacher[no_of_teachers];
+    cout << "2" << endl;
+    for (int i = 0; i < no_of_teachers; i++){
+        cout << "3" << endl;
+        course* course_objs = new course[t[i].no_of_courses];
+        cout << "4" << endl;
+        for (int j = 0; j < t[i].no_of_courses; j++){
+            cout << "5" << endl;
+            course_objs[j] = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
+        }
+        cout << "6" << endl;
+        teacher_objs[i] = teacher(t[i].teacher_name, &course_objs, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
+        cout << "7" << endl;
+    }
+    cout << "8" << endl;
+    return teacher_objs;
+}
+
+
+teacher* return_teacher_obj(){
+    Course* course_list = new Course[no_of_courses];
+    Teacher* teacher_list = new Teacher[no_of_teachers];
+    assign_course_names(course_list);
+    assign_periods(course_list);
+    assign_students(course_list);
+    assign_courses(teacher_list, course_list);
+    assign_restrictions(teacher_list);
+    print2(teacher_list);
+    teacher* ab = create_teacher_obj(teacher_list);
+    return ab;
+}
+
 
 string student_names[5][4] = {{"Narendran", "Vibhu", "Jishnu"},
                             {"Shubham", "Auro", "Roshini", "Vibhu"},
@@ -110,14 +280,15 @@ int get_num_of_classes() {
 
 void construct_class_array() {
     // iterate through course array, create class object
-
+    cout << "test 1";
     course** teacher_courses = nullptr;
     int num_of_classes = get_num_of_classes();
     int index = 0;
 
     //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
-    for(int i = 0; i < sizeof(teachers)/sizeof(teachers[0]); i++) {
+    for(int i = 0; i < 50; i++) {
+        //cout << "heyi" << endl;
         teacher_courses = teachers[i].get_course_array();
         //cout<<"Number of courses with teacher: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
         for(int j = 0; j < teachers[i].get_num_courses(); j++) {
@@ -126,6 +297,8 @@ void construct_class_array() {
             }
         }
     }
+
+    cout << "test 2" << endl;
 
     //cout << "Class array constructed!\n";
 
@@ -238,6 +411,7 @@ void put_in_timetable(int carray_index, int tt_index) {
 void init() {
 
     while(1) {
+        //cout << "ihie" << endl;
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
         //cout << "Course: " << course_ref->get_subject_name() << endl;
@@ -403,12 +577,12 @@ void print_timetable(){
 
 
 int main(){
-    int teachers2 = return_teacher_obj();
+    teachers = return_teacher_obj();
+    cout << "size: " << float(sizeof(teachers))/float(sizeof(teachers[0]));
     cout << "hi";
-
     construct_class_array();
     init();
-    cout << "buffalo";
+    cout << "buffalo" << endl;
     getchar();
     return 0;
 }

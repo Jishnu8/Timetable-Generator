@@ -25,6 +25,7 @@ class course{
     string get_subject_name() const;
     int get_no_of_periods() const;
     int get_no_of_students() const;
+    void print() const;
 };
 
 #endif //COURSE_H

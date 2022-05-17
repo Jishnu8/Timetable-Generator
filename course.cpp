@@ -42,3 +42,7 @@ int course::get_no_of_periods() const
 int course::get_no_of_students() const{
     return no_of_students;
 }
+
+void course::print() const{
+    cout << "Subject name: " << subject_name << endl;
+}

@@ -22,6 +22,7 @@ class teacher{
     course** get_course_array() const;
     int* get_teacher_restrictions() const;
     int get_num_courses() const;
+    void print() const;
 };
 
 

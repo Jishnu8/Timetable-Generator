@@ -82,15 +82,20 @@ void assign_courses(Teacher* t, Course* c){
     bool is_random = true;
     for (int i = 0; i < no_of_teachers; i++){
         t[i].teacher_name = teacher_list[i];
-        if (size1 == 2 || !is_random ){
+        if (size1 == 2 || !is_random){
             size1 = get_rand(1,3);
             is_random = true;
         }
         else if (size1 == 1 && is_random){
             size1 = 3;
+            is_random = false;
         }
         else if (size1 == 3 && is_random){
             size1 = 1;
+            is_random = false;
+        }
+        else {
+            size1 = get_rand(1,3);
         }
 
         t[i].no_of_courses = size1;
@@ -167,23 +172,24 @@ void print2(Teacher *t){
 
 
 teacher* create_teacher_obj(Teacher* t){
-    cout << "blah";
-    cout << "1" << endl;
     teacher* teacher_objs = new teacher[no_of_teachers];
-    cout << "2" << endl;
     for (int i = 0; i < no_of_teachers; i++){
-        cout << "3" << endl;
-        course* course_objs = new course[t[i].no_of_courses];
-        cout << "4" << endl;
+        //course** course_objs = new course*[t[i].no_of_courses];
+        course *course_objs[t[i].no_of_courses];
         for (int j = 0; j < t[i].no_of_courses; j++){
-            cout << "5" << endl;
-            course_objs[j] = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
+            course temp = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
+            course_objs[j] = &temp;
+            course_objs[j]->print();
+            getchar();
         }
-        cout << "6" << endl;
-        teacher_objs[i] = teacher(t[i].teacher_name, &course_objs, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
-        cout << "7" << endl;
+        cout << t[i].teacher_name << endl;
+        cout << t[i].no_of_courses << endl;
+        cout << t[i].teacher_restrictions << endl << t[i].tr_size << endl;
+
+        teacher_objs[i] = teacher(t[i].teacher_name, course_objs, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
+        //teacher_objs[i].print();
+        //getchar();
     }
-    cout << "8" << endl;
     return teacher_objs;
 }
 
@@ -287,7 +293,7 @@ void construct_class_array() {
 
     //cout << course1[0]->get_subject_name() << course1[1]->get_subject_name() << endl;
 
-    for(int i = 0; i < 50; i++) {
+    for(int i = 0; i < no_of_teachers; i++) {
         //cout << "heyi" << endl;
         teacher_courses = teachers[i].get_course_array();
         //cout<<"Number of courses with teacher: " << sizeof(teacher_courses)/sizeof(teacher_courses[0]) << endl;
@@ -578,6 +584,9 @@ void print_timetable(){
 
 int main(){
     teachers = return_teacher_obj();
+    for (int i = 0; i < no_of_teachers; i++){
+        teachers[i].print();
+    }
     cout << "size: " << float(sizeof(teachers))/float(sizeof(teachers[0]));
     cout << "hi";
     construct_class_array();

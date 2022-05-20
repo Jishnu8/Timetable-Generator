@@ -16,6 +16,7 @@ teacher::teacher(string nm, course** ca, int size1, int* tr, int tr_size, int nu
 //    for (int i = 0; i < tr_size; i++){
 //        cout << tr[i] << endl;
 //    }
+    cout << ca[1] << endl;
     ca[0]->print();
 
     teacher_restrictions = new int[tr_size];

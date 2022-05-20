@@ -24,7 +24,7 @@
 //Conclusion: THe shittier the laptop, the better it is for the program :)
 
 //I don't know what to write. This is a serious matter. Is this life? Is this what it has come down to?
-//Labyrinthing the inconsistencies of C++, I torture myself. We are good guys :( Aren't we?
+//Labyrinthing the inconsistencies of C++, I torture myself. We are the good guys :( Aren't we? :)
 //NNNNNNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 using namespace std;
@@ -174,19 +174,21 @@ void print2(Teacher *t){
 teacher* create_teacher_obj(Teacher* t){
     teacher* teacher_objs = new teacher[no_of_teachers];
     for (int i = 0; i < no_of_teachers; i++){
-        //course** course_objs = new course*[t[i].no_of_courses];
-        course *course_objs[t[i].no_of_courses];
+        course** course_objs = new course*[t[i].no_of_courses];
+        //course *course_objs[t[i].no_of_courses];
         for (int j = 0; j < t[i].no_of_courses; j++){
             course temp = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
             course_objs[j] = &temp;
             course_objs[j]->print();
             getchar();
         }
-        cout << t[i].teacher_name << endl;
-        cout << t[i].no_of_courses << endl;
-        cout << t[i].teacher_restrictions << endl << t[i].tr_size << endl;
-
-        teacher_objs[i] = teacher(t[i].teacher_name, course_objs, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
+        cout << course_objs[1] << endl;
+        //cout << t[i].teacher_name << endl;
+        //cout << t[i].no_of_courses << endl;
+        //cout << t[i].teacher_restrictions << endl << t[i].tr_size << endl;
+        course **blah;
+        blah = course_objs;
+        teacher_objs[i] = teacher(t[i].teacher_name, blah, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
         //teacher_objs[i].print();
         //getchar();
     }

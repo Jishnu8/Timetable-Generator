@@ -179,18 +179,18 @@ teacher* create_teacher_obj(Teacher* t){
         for (int j = 0; j < t[i].no_of_courses; j++){
             course temp = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
             course_objs[j] = &temp;
-            course_objs[j]->print();
-            getchar();
+            //course_objs[j]->print();
+            //getchar();
         }
-        cout << course_objs[1] << endl;
+        cout << course_objs << endl;
         //cout << t[i].teacher_name << endl;
         //cout << t[i].no_of_courses << endl;
         //cout << t[i].teacher_restrictions << endl << t[i].tr_size << endl;
         course **blah;
         blah = course_objs;
         teacher_objs[i] = teacher(t[i].teacher_name, blah, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
-        //teacher_objs[i].print();
-        //getchar();
+        teacher_objs[i].print();
+        getchar();
     }
     return teacher_objs;
 }

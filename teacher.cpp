@@ -18,14 +18,13 @@ teacher::teacher(string nm, course** ca, int size1, int* tr, int tr_size, int nu
 //    }
 
     //cout << "Num of courses: " << size1 << endl;
-    //cout << ca[1] << endl;
     //ca[0]->print();
 
     teacher_restrictions = new int[tr_size];
     for (int i = 0; i < size1; i++){
         course_array[i] = ca[i];
-        //course_array[i]->print();
-        //getchar();
+//        course_array[i]->print();
+//        getchar();
     }
     //cout << "Teacher restrictions: ";
 //    for (int i = 0; i < tr_size; i++){
@@ -67,6 +66,8 @@ void teacher::print() const{
     cout << "Number of courses: " << num_courses << endl;
     for (int i = 0; i < num_courses; i++){
         course_array[i]->print();
+        //cout << "pointer: " << course_array[i] << endl;
+        //cout << course_array[i]->subject_name << endl;
     }
     cout << endl;
 }

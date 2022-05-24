@@ -7,13 +7,13 @@ using namespace std;
 
 class course{
     string* student_names;
-    string subject_name;
     int no_of_periods;
     int no_of_students;
     friend class teacher;
     //int* location_assigned;
 
     public:
+    string subject_name;
     int* periods_assigned;
     int no_of_periods_assigned;
 

@@ -17,7 +17,7 @@ course::course(string* stu, string sub, int no_periods, int no_students)
     }
     periods_assigned = new int[10];
     no_of_periods_assigned = 0;
-    cout << "Initialising course " << subject_name << endl;
+    //cout << "Initialising course " << subject_name << endl;
 }
 
 //course::~course(){
@@ -40,11 +40,11 @@ int course::get_no_of_periods() const
     return no_of_periods;
 }
 
-int course::get_no_of_students() const{
+int course::get_no_of_students() const {
     return no_of_students;
 }
 
-void course::print() const{
-    cout << "Printing course name" << endl;
-    //cout << "Subject name: " << subject_name << endl;
+void course::print() const {
+    //cout << "Printing course name" << endl;
+    cout << "Subject name: " << subject_name << endl;
 }

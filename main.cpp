@@ -175,22 +175,27 @@ teacher* create_teacher_obj(Teacher* t){
     teacher* teacher_objs = new teacher[no_of_teachers];
     for (int i = 0; i < no_of_teachers; i++){
         course** course_objs = new course*[t[i].no_of_courses];
+        course* temp = new course[t[i].no_of_courses];
         //course *course_objs[t[i].no_of_courses];
         for (int j = 0; j < t[i].no_of_courses; j++){
-            course temp = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
-            course_objs[j] = &temp;
+
+            //course* temp = new course;
+            //cout << "Temp: " << temp << endl;
+            //*temp = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
+            temp[j] = course(t[i].courses[j].student_names, t[i].courses[j].course_name, t[i].courses[j].no_of_periods, t[i].courses[j].no_of_students);
+            course_objs[j] = &(temp[j]);
+
             //course_objs[j]->print();
+            //cout << "Pointer: " << course_objs[j] << endl;
+            //delete temp;
             //getchar();
         }
-        cout << course_objs << endl;
-        //cout << t[i].teacher_name << endl;
-        //cout << t[i].no_of_courses << endl;
-        //cout << t[i].teacher_restrictions << endl << t[i].tr_size << endl;
+
         course **blah;
         blah = course_objs;
         teacher_objs[i] = teacher(t[i].teacher_name, blah, t[i].no_of_courses, t[i].teacher_restrictions, t[i].tr_size, t[i].no_of_courses);
-        teacher_objs[i].print();
-        getchar();
+        //teacher_objs[i].print();
+        //getchar();
     }
     return teacher_objs;
 }
@@ -418,8 +423,15 @@ void put_in_timetable(int carray_index, int tt_index) {
 
 void init() {
 
+    int max_index = 0;
+
     while(1) {
         //cout << "ihie" << endl;
+        //cout << "Class index: " << class_index << endl;
+        if (class_index > max_index) {
+            max_index = class_index;
+            cout << "Furthest: " << max_index << endl;
+        }
         clas* class_ = &class_array[class_index];
         course_ref = class_->get_course_obj(); // a course pointer
         //cout << "Course: " << course_ref->get_subject_name() << endl;
@@ -450,6 +462,8 @@ void init() {
                     return;
                 }
                 //cout << "Backtracking\n";
+                //print_timetable();
+                //getchar();
                 backtrack_to_prev_class(class_, &class_array[class_index-1]); // function 2
                 //cout << "Backtracking successful\n";
                 class_index--;
